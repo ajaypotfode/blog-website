@@ -40,6 +40,7 @@ export const POST = async (req: Request) => {
 
         response.cookies.set('blogToken', token, {
             httpOnly: true,
+            secure: true,
             sameSite: 'strict',
             maxAge: 60 * 60 * 24,
             path: "/"

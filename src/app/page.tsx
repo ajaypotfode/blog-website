@@ -14,7 +14,8 @@ export default function Home() {
   useEffect(() => {
     fetchBlogs("all")
     const isVerified = document.cookie.includes("blogToken")
-    
+    console.log("is verified :", isVerified);
+
     if (isVerified) {
       setIsUserLogedin(isVerified)
     }
