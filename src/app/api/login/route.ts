@@ -39,7 +39,6 @@ export const POST = async (req: Request) => {
 
 
         response.cookies.set('blogToken', token, {
-            nam
             httpOnly: true,
             secure: true,
             sameSite: 'strict',
