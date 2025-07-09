@@ -4,9 +4,9 @@ import { NextRequest, NextResponse } from "next/server"
 import { getLoggedInUser } from "@/utils/jwtVerification"
 // Importing User model to ensure it's registered before using it in Blog API,
 // since Blog references User via the 'author' field and we want to populate it even without login.
-import UserModel, { User } from "@/model/userSchema";
-import { sendNotification } from "@/utils/sendEmial";
-import SubscriberModel from "@/model/subscriberSchema";
+import UserModel /*,{ User }*/ from "@/model/userSchema";
+// import { sendNotification } from "@/utils/sendEmial";
+// import SubscriberModel from "@/model/subscriberSchema";
 // Touch the model to avoid TS unused import warning
 void UserModel;
 
@@ -61,20 +61,25 @@ export const POST = async (req: Request) => {
 
         const response = await newBlog.populate("author", "userName")
 
-        const subscribers = await SubscriberModel.find({ autherId: response.author?._id?.toString() })
 
-        if (subscribers.length > 0) {
-            await Promise.all(subscribers.map((subscriber) => {
-                // if (typeof response.author === ) {
-                sendNotification(
-                    subscriber.email,
-                    response.title,
-                    response._id?.toString(),
-                    (response.author as User)?.userName || "Unknown Author"
-                )
-                // }
-            }))
-        }
+        // Commented this functionality cause when generating the live project link, as Resend could restrict sending
+        //  emails to addresses that are not registered or if not Having verified domain email.
+
+
+        // const subscribers = await SubscriberModel.find({ autherId: response.author?._id?.toString() })
+
+        // if (subscribers.length > 0) {
+        //     await Promise.all(subscribers.map((subscriber) => {
+        //         // if (typeof response.author === ) {
+        //         sendNotification(
+        //             subscriber.email,
+        //             response.title,
+        //             response._id?.toString(),
+        //             (response.author as User)?.userName || "Unknown Author"
+        //         )
+        //         // }
+        //     }))
+        // }
 
 
         return NextResponse.json({ message: "blog Created SuccessFully!! ", success: true, result: response }, { status: 200 })
