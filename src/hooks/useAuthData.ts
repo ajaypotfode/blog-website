@@ -70,8 +70,8 @@ const UseAuthData = () => {
         } else dispatch(getSignupData({ email: "", userName: "", password: "" }))
     }
 
-    const setIsUserLogedin = (value: string) => {
-        dispatch(isUserLogedIn(JSON.parse(value)))
+    const setIsUserLogedin = (value: boolean) => {
+        dispatch(isUserLogedIn(value))
     }
 
     return {

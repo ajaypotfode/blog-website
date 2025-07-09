@@ -5,15 +5,6 @@ export async function middleware(request: NextRequest) {
     const { pathname } = request.nextUrl;
     const token = await request.cookies.get('blogToken')?.value
 
-    const response = NextResponse.next()
-
-    // let isVerified
-    if (token) {
-        response.cookies.set('isVerified', 'true')
-    } else {
-        response.cookies.set('isVerified', 'false')
-    }
-
 
     const protectedRoute = ['/admin/addblog', '/admin/blog-list', '/admin/subscribers']
     // console.log("midlware is having token  :", token?.value?);
@@ -30,7 +21,7 @@ export async function middleware(request: NextRequest) {
     }
 
 
-    return response
+    return NextResponse.next()
 }
 
 

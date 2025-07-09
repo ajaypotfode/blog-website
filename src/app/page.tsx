@@ -5,7 +5,6 @@ import UseAuthData from "@/hooks/useAuthData";
 import UseBlogData from "@/hooks/useBlogData";
 import Link from "next/link";
 import { useEffect } from "react";
-import Cookies from 'js-cookie'
 
 export default function Home() {
   const { fetchBlogs, blogs, handleAddBlog, loading, activeCategory, setActiveCategory, isLogedIn } = UseBlogData()
@@ -14,7 +13,8 @@ export default function Home() {
 
   useEffect(() => {
     fetchBlogs("all")
-    const isVerified = Cookies.get('isVerified')
+    const isVerified = document.cookie.includes("blogToken")
+    
     if (isVerified) {
       setIsUserLogedin(isVerified)
     }
@@ -29,7 +29,7 @@ export default function Home() {
           <span>My Blogs</span>
         </div>
         <div className="flex gap-4">
-           <button className="px-4 py-2  bg-black text-white rounded hover:bg-gray-800 h-fit cursor-pointer whitespace-nowrap"
+          <button className="px-4 py-2  bg-black text-white rounded hover:bg-gray-800 h-fit cursor-pointer whitespace-nowrap"
             onClick={handleAddBlog}>
             Admin Panel
           </button>
