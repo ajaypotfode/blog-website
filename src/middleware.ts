@@ -3,34 +3,33 @@ import { NextResponse, type NextRequest } from 'next/server'
 
 export async function middleware(request: NextRequest) {
     const { pathname } = request.nextUrl;
-    const token = await request.cookies.get('blogToken')
+    const token = await request.cookies.get('blogToken')?.value
 
-    let isVerified
-    if (token?.value) {
-        
-        isVerified = 'true'
+    const response = NextResponse.next()
+
+    // let isVerified
+    if (token) {
+        response.cookies.set('isVerified', 'true')
     } else {
-        isVerified = 'false'
+        response.cookies.set('isVerified', 'false')
     }
 
 
     const protectedRoute = ['/admin/addblog', '/admin/blog-list', '/admin/subscribers']
     // console.log("midlware is having token  :", token?.value?);
 
-    if (!token?.value && protectedRoute.some((route) => pathname.startsWith(route))) {
+    if (!token && protectedRoute.some((route) => pathname.startsWith(route))) {
         // console.log("midlware token not having :", pathname);
         const redirectUrl = new URL('/login', request.url)
         redirectUrl.searchParams.set('error', 'login_required')
         return NextResponse.redirect(redirectUrl)
     }
 
-    if (token?.value && (pathname === '/register' || pathname === '/login')) {
+    if (token && (pathname === '/register' || pathname === '/login')) {
         return NextResponse.redirect(new URL('/', request.url))
     }
 
 
-    const response = NextResponse.next()
-    response.cookies.set('isVerified', isVerified)
     return response
 }
 
