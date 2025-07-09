@@ -1,103 +1,84 @@
-import Image from "next/image";
+"use client"
+import Card from "@/component/Card";
+import { PageSpinner } from "@/component/Loaders";
+import UseAuthData from "@/hooks/useAuthData";
+import UseBlogData from "@/hooks/useBlogData";
+import Link from "next/link";
+import { useEffect } from "react";
+import Cookies from 'js-cookie'
 
 export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-[family-name:var(--font-geist-mono)] font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+  const { fetchBlogs, blogs, handleAddBlog, loading, activeCategory, setActiveCategory, isLogedIn } = UseBlogData()
+  const { getLogoutUser, setIsUserLogedin } = UseAuthData()
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+
+  useEffect(() => {
+    fetchBlogs("all")
+    const isVerified = Cookies.get('isVerified')
+    if (isVerified) {
+      setIsUserLogedin(isVerified)
+    }
+  }, [])
+
+
+  return (
+    <div className="h-screen flex flex-col bg-gray-200  overflow-y-auto  overflow-x-hidden">
+      <header className="flex justify-between items-center px-6 py-4 text-black">
+        <div className="text-2xl font-bold flex items-center space-x-2">
+          <span className="font-bold text-4xl"><i className="bi bi-journal-text"></i></span>
+          <span>My Blogs</span>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+        <div className="flex gap-4">
+           <button className="px-4 py-2  bg-black text-white rounded hover:bg-gray-800 h-fit cursor-pointer whitespace-nowrap"
+            onClick={handleAddBlog}>
+            Admin Panel
+          </button>
+          {
+            !isLogedIn ? <Link href='/login' className="px-4 py-2 bg-black text-white rounded hover:bg-gray-800 h-fit">Login</Link> :
+              <div className="px-4 py-2 bg-black text-white rounded hover:bg-gray-800 h-fit cursor-pointer" onClick={() => getLogoutUser()}>LogOut</div>
+          }
+
+        </div>
+      </header>
+      <section className="flex-1 flex flex-col items-center text-center mt-4 px-4 text-black">
+        <h1 className="md:text-4xl text-3xl font-bold">Latest Blogs</h1>
+        <p className="text-gray-600 mt-4 max-w-xl mx-auto">
+          Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry standard dummy text ever.
+        </p>
+        <div className="mt-10 flex justify-center sm:space-x-6 space-x-3 overflow-x-auto">
+          {["all", "music", "games", "sports"].map((item, idx) => (
+            <button
+              key={item}
+              className={`px-4 py-1 rounded ${idx === activeCategory ? "bg-black text-white" : "text-black cursor-pointer"
+                }`}
+              onClick={() => {
+                fetchBlogs(item)
+                setActiveCategory(idx)
+              }
+              }
+            >
+              {item}
+            </button>
+          ))}
+        </div>
+        {
+          loading["getBlogs"] ?
+            <div className="flex flex-1  justify-center items-center sm:grid-cols-2 gap-8 mt-10 px-6 pb-20  w-full">
+              <PageSpinner />
+            </div> : (
+              blogs.length > 0 ?
+                <div className="flex flex-wrap justify-center items-center lg:gap-8 md:gap-4 gap-y-5 mt-10 lg:px-6 md:px-4 pb-20  w-full">
+                  <Card blogs={blogs} />
+                </div> :
+                <div className="flex flex-1  justify-center items-center sm:grid-cols-2 gap-8 mt-10 px-6 pb-20  w-full">
+                  <h2 className="font-bold text-4xl">
+                    No Blogs Available!!!!
+                  </h2>
+                </div>
+            )
+        }
+      </section>
     </div>
+
   );
 }
