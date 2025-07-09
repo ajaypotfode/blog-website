@@ -46,6 +46,15 @@ export const POST = async (req: Request) => {
             path: "/"
         })
 
+        // it is use to set loged in user is loged in or not
+        response.cookies.set('isLogedin', 'true', {
+            secure: true,
+            sameSite: 'strict',
+            maxAge: 60 * 60 * 24,
+            path: "/"
+        })
+
+
         return response
 
     } catch (error: unknown) {

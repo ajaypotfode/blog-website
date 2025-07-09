@@ -5,6 +5,7 @@ import UseAuthData from "@/hooks/useAuthData";
 import UseBlogData from "@/hooks/useBlogData";
 import Link from "next/link";
 import { useEffect } from "react";
+import Cookies from 'js-cookie'
 
 export default function Home() {
   const { fetchBlogs, blogs, handleAddBlog, loading, activeCategory, setActiveCategory, isLogedIn } = UseBlogData()
@@ -13,11 +14,12 @@ export default function Home() {
 
   useEffect(() => {
     fetchBlogs("all")
-    const isVerified = document.cookie.includes("blogToken")
-    console.log("is verified :", isVerified);
+    const isVerified = Cookies.get('isLogedin')
 
     if (isVerified) {
-      setIsUserLogedin(isVerified)
+      setIsUserLogedin(JSON.parse(isVerified))
+    } else {
+      setIsUserLogedin(false)
     }
   }, [])
 
@@ -35,8 +37,8 @@ export default function Home() {
             Admin Panel
           </button>
           {
-            !isLogedIn ? <Link href='/login' className="px-4 py-2 bg-black text-white rounded hover:bg-gray-800 h-fit">Login</Link> :
-              <div className="px-4 py-2 bg-black text-white rounded hover:bg-gray-800 h-fit cursor-pointer" onClick={() => getLogoutUser()}>LogOut</div>
+            !isLogedIn ? <Link href='/login' className="px-4 py-2 bg-black text-white rounded hover:bg-gray-800 h-fit">Login</Link>
+              : <div className="px-4 py-2 bg-black text-white rounded hover:bg-gray-800 h-fit cursor-pointer" onClick={() => getLogoutUser()}>LogOut</div>
           }
 
         </div>
