@@ -47,7 +47,6 @@ const UseAuthData = () => {
         if (loginFormValidate(loginData, dispatch)) {
             const response = await dispatch(loginUser(loginData)).unwrap()
             if (response.success) {
-                // router.push('/')
                 window.location.href = '/'
                 toast.success('user Loged In SuccessFully!!!')
             }
