@@ -2,7 +2,6 @@
 "use client"
 import { FormSpinner } from '@/component/Loaders';
 import UseAuthData from '@/hooks/useAuthData';
-import Link from 'next/link';
 
 const LoginForm = () => {
     const { loginData, handleLoginData, getLoginUser, handleAuthNavigation, loading, formErrors } = UseAuthData()
