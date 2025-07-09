@@ -57,7 +57,7 @@ const UseAuthData = () => {
         const response = await dispatch(logoutUser()).unwrap()
         if (response.success) {
             toast.success('user Loged Out SuccessFully!!!')
-            router.push('/login')
+             window.location.href = '/login'
         }
     }
 
