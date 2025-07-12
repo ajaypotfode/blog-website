@@ -62,6 +62,7 @@ export interface BlogInitialState {
     singleBlog: BlogResult | null,
     subscriberModel: boolean,
     adminBlogs: AdminBlogType[],
+    sidebar:boolean
     // instanceOfRichtext: null | ((value: string) => boolean)
 }
 

@@ -14,8 +14,8 @@ const BlogList = () => {
     }, [])
 
     return (
-        <div className="p-4 sm:w-[100%] w-[80%]">
-            <h3 className="font-bold text-xl mb-4 text-start ">Your Blogs</h3>
+        <div className="mobile:p-4 w-full">
+            <h3 className="font-bold mobile:text-xl text-md mb-4 text-start ">Your Blogs</h3>
             <div className="overflow-x-auto bg-white rounded-lg shadow-md flex-1">
                 {
                     loading['getAdminBlogs']
@@ -23,28 +23,28 @@ const BlogList = () => {
                             <PageSpinner />
                         </div>)
                         : (<table className="min-w-full table-auto ">
-                            <thead className="bg-gray-200  text-gray-700 text-sm">
+                            <thead className="bg-gray-200  text-gray-700 mobile:text-sm text-xs">
                                 <tr className="text-left">
-                                    <th className="p-4 whitespace-nowrap">AUTHOR NAME</th>
-                                    <th className="p-4 whitespace-nowrap">BLOG TITLE</th>
-                                    <th className="p-4">DATE</th>
-                                    <th className="p-4 text-center">ACTION</th>
+                                    <th className="mobile:p-4 p-2  whitespace-nowrap">AUTHOR NAME</th>
+                                    <th className="mobile:p-4 p-2  whitespace-nowrap">BLOG TITLE</th>
+                                    <th className="mobile:p-4 p-2 ">DATE</th>
+                                    <th className="mobile:p-4 p-2  text-center">ACTION</th>
                                 </tr>
                             </thead>
                             <tbody className="text-sm text-gray-800">
                                 {
                                     adminBlogs.map((blog) => (
-                                        <tr className=" hover:bg-gray-50 text-left" key={blog._id}>
-                                            <td className="p-4 flex items-center gap-3 whitespace-nowrap">
+                                        <tr className=" hover:bg-gray-50 text-left mobile:text-sm text-xs" key={blog._id}>
+                                            <td className="mobile:p-4 p-2 flex items-center gap-3 whitespace-nowrap">
                                                 <span>{blog.author.userName}</span>
                                             </td>
-                                            <td className="p-4 flex-1">{blog.title}</td>
-                                            <td className="p-4 whitespace-nowrap">
+                                            <td className="mobile:p-4 p-2 flex-1 whitespace-nowrap">{blog.title}</td>
+                                            <td className="mobile:p-4 p-2 whitespace-nowrap">
                                                 {
                                                     format(new Date(blog.date), 'dd MMM yyyy')
                                                 }
                                             </td>
-                                            <td className="p-4 cursor-pointer text-red-600 font-bold text-center" onClick={() => getDeleteBlog(blog._id)}>
+                                            <td className="mobile:p-4 p-2 cursor-pointer text-red-600 font-bold text-center" onClick={() => getDeleteBlog(blog._id)}>
                                                 <i className="bi bi-x-lg font-bold"></i>
                                             </td>
                                         </tr>

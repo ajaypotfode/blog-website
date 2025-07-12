@@ -31,7 +31,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <div className="react-toast">
+        <div className="react-toast mobile:text-md text-xs">
           <ToastContainer position="top-right" autoClose={1000} />
         </div>
         <ProviderWrapper> {children}</ProviderWrapper>

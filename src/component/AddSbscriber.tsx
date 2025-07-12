@@ -15,7 +15,7 @@ const AddSbscriber = ({ handleSubscriberModel, autherId }: { handleSubscriberMod
                     : ( */}
 
             <div className="bg-gray-100 p-8 rounded-2xl w-full max-w-md shadow-lg" onClick={(e) => e.stopPropagation()} >
-                <h2 className="text-black text-2xl font-semibold mb-6 text-center">Add Email To Subscibe</h2>
+                <h2 className="text-black mobile:text-2xl text-xl font-semibold mb-6 text-center">Add Email To Subscibe</h2>
                 <form className="space-y-4" >
                     <input
                         type="email"
@@ -28,7 +28,7 @@ const AddSbscriber = ({ handleSubscriberModel, autherId }: { handleSubscriberMod
                     {/* {} */}
                     <button
                         type="submit"
-                        className="w-full bg-black text-white py-3 "
+                        className="w-full bg-black text-white mobile:py-3 py-2 mobile:text-lg text-sm "
                         onClick={(e) => {
                             e.preventDefault()
                             subscribe(autherId)

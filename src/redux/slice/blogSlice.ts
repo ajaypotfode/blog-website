@@ -129,6 +129,7 @@ const initialState: BlogInitialState = {
     singleBlog: null,
     subscriberModel: false,
     adminBlogs: [],
+    sidebar: false
     // instanceOfRichtext: null
 }
 
@@ -143,6 +144,9 @@ const blogSlice = createSlice({
         getSubdcriberModel: (state) => {
             state.subscriberModel = !state.subscriberModel
         },
+        handleSidebar: (state) => {
+            state.sidebar = !state.sidebar
+        }
         // getInstanceOfRichTextEditor: (state, action) => {
         //     state.instanceOfRichtext = action.payload
         // }
@@ -184,5 +188,5 @@ const blogSlice = createSlice({
 })
 
 
-export const { getBlogData, getSubdcriberModel } = blogSlice.actions
+export const { getBlogData, getSubdcriberModel, handleSidebar } = blogSlice.actions
 export default blogSlice.reducer

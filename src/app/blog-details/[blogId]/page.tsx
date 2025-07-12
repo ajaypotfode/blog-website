@@ -25,13 +25,13 @@ const Blog = ({ params }: { params: Promise<{ blogId: string }> }) => {
 
             <header className="flex justify-between p-6 z-20 bg-gray-200 ">
                 <div className="flex text-black items-center space-x-2 h-fit">
-                    <div className="text-2xl font-bold">
+                    <div className="mobile:text-3xl text-lg font-bold">
                         <Link href='/' className="flex items-center gap-2">
-                            <span className="font-bold text-4xl inline-block"><i className="bi bi-journal-text"></i></span> My Blogs
+                            <span className="inline-block"><i className="bi bi-journal-text"></i></span> My Blogs
                         </Link>
                     </div>
                 </div>
-                <button className="px-4 py-2 bg-black text-white rounded hover:bg-gray-800 h-fit" onClick={handleSubscriptionModel}>
+                <button className="mobile:px-4 py-2 px-2 mobile:text-lg text-xs bg-black text-white rounded hover:bg-gray-800 h-fit" onClick={handleSubscriptionModel}>
                     Subscribe →
                 </button>
             </header>
@@ -42,21 +42,21 @@ const Blog = ({ params }: { params: Promise<{ blogId: string }> }) => {
                         <PageSpinner />
                     </div>)
                     : (singleBlog && <main className="flex-1 flex flex-col items-center text-center mt-4 px-4 pb-32 z-20">
-                        <h1 className="text-3xl font-bold mb-2 text-black">
+                        <h1 className="mobile:text-3xl text-xl font-bold mb-2 text-black">
                             {singleBlog.title}
                         </h1>
-                        <div className="flex place-content-center items-center justify-center gap-4 mt-2 mb-6 flex-col">
-                            <div className="border-2 w-20 h-20 place-content-center rounded-full  text-black text-4xl font-bold">
+                        <div className="flex place-content-center items-center justify-center mobile:gap-4 gap-1 mt-2 mb-6 flex-col">
+                            <div className="border-2 mobile:w-20 mobile:h-20 w-14 h-14 place-content-center rounded-full  text-black mobile:text-4xl text-2xl font-bold">
                                 {singleBlog.author?.userName[0]}
                             </div>
                             <span className="text-gray-700 font-medium ">{singleBlog.author?.userName}</span>
                         </div>
 
-                        <div className=" max-w-3xl  md:w-[60%] w-[80%] ">
-                            <div className="w-full h-60 border border-black">
+                        <div className=" max-w-3xl  md:w-[70%] mobile:w-[90%] w-[95%] ">
+                            <div className="w-full mobile:h-60 h-48 border mb-2 border-black">
                                 <Image src={singleBlog.image} alt={singleBlog.title} className="rounded shadow w-full h-full" width={100} height={100} />
                             </div>
-                            <div className="text-black text-start tracking-tight whitespace-pre-wrap">
+                            <div className="mobile:text-lg text-md text-black text-start tracking-tight mobile:whitespace-pre-wrap">
                                 {parse(singleBlog.description)}
                             </div>
                         </div>

@@ -1,5 +1,5 @@
 import { useAppDispatch, useAppSelector } from "@/redux/reduxHooks"
-import { addBlog, blogDetails, deleteBlog, getAdminBlogs, getBlogData, getBlogs, getSubdcriberModel, uploadImage } from "@/redux/slice/blogSlice"
+import { addBlog, blogDetails, deleteBlog, getAdminBlogs, getBlogData, getBlogs, getSubdcriberModel, handleSidebar, uploadImage } from "@/redux/slice/blogSlice"
 import { useRouter } from "next/navigation"
 import React, { useRef, useState } from "react"
 import { EditorRef } from "@/types/RichTextType"
@@ -12,7 +12,7 @@ import blogFormValidate from "@/formValidation/blogFormvalidate"
 
 
 const UseBlogData = () => {
-    const { blogdata, blogs, singleBlog, subscriberModel, adminBlogs } = useAppSelector(state => state.blog)
+    const { blogdata, blogs, singleBlog, subscriberModel, adminBlogs, sidebar } = useAppSelector(state => state.blog)
     const { loading, error, isLogedIn, formErrors } = useAppSelector(state => state.global)
     const dispatch = useAppDispatch()
     const router = useRouter()
@@ -93,7 +93,8 @@ const UseBlogData = () => {
         // ed
     }
 
-    const handleAddBlog = () => {
+    const handleAddBlog = (e: React.MouseEvent<HTMLButtonElement>) => {
+        e.preventDefault()
         router.push('/admin/addblog')
         dispatch(setFormErrors({}))
     }
@@ -113,7 +114,11 @@ const UseBlogData = () => {
         if (route === "/admin/addblog") {
             dispatch(setFormErrors({}))
         }
+        dispatch(handleSidebar())
+    }
 
+    const setSidebar = () => {
+        dispatch(handleSidebar())
     }
 
     return {
@@ -141,7 +146,9 @@ const UseBlogData = () => {
         error,
         isLogedIn,
         formErrors,
-        handleAdminNavigation
+        handleAdminNavigation,
+        setSidebar,
+        sidebar
     }
 }
 

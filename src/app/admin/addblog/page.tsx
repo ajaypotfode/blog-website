@@ -10,18 +10,18 @@ const AddBlog = () => {
 
 
     return (
-        <div className="max-w-2xl lg:w-[60%] md:w-[80%] sm:[90%]">
-            <h3 className="font-bold text-xl mb-4 text-start ">Create New Blog</h3>
-            <div className="mb-6 ">
+        <div className="max-w-4xl lg:w-[70%] md:w-[80%] w-full">
+            <h3 className="font-bold mobile:text-xl text-lg mb-4 text-start ">Create New Blog</h3>
+            <div className="mb-6 mobile:text-lg text-sm ">
                 <label className="block text-black mb-2 text-start">Upload thumbnail</label>
-                <div className="border-2 border-dashed border-gray-300 rounded flex h-20 cursor-pointer w-80 justify-between items-center ">
+                <div className="border-2 border-dashed border-gray-300 rounded flex mobile:h-20 h-16 cursor-pointer mobile:w-80 w-60 justify-between items-center ">
                     <input type="file" className="w-full h-[100%]  p-6 flex-1 " placeholder="Upload Image" onChange={handleImageUpload} ref={imageRef} />
                     {loading['uploadImage'] && <SmallComponentSpinner />}
                 </div>
             </div>
 
 
-            <div className="mb-4">
+            <div className="mb-6 mobile:text-lg text-sm ">
                 <label className="block text-black mb-1 text-start">Blog title</label>
                 <input
                     type="text"
@@ -35,7 +35,7 @@ const AddBlog = () => {
             </div>
 
 
-            <div className="mb-4">
+            <div className="mb-6 mobile:text-lg text-sm ">
                 <label className="block text-black mb-1 text-start">Blog Category</label>
                 <select name="category" value={blogdata.category} id="" className="w-full border border-gray-300 rounded px-3 py-2" onChange={handleBlogData}>
                     <option value="">select category</option>
@@ -47,7 +47,7 @@ const AddBlog = () => {
             </div>
 
 
-            <div>
+            <div className="mobile:text-lg text-sm ">
                 <label className="block text-black mb-1 text-start">Blog Description</label>
                 <div className="w-full rounded border border-gray-300  ">
                     <RichTextField handleChange={handleRichtextChange} richTextEditor={richTextRef} />
@@ -56,7 +56,7 @@ const AddBlog = () => {
             </div>
 
             
-            <div className="mt-3">
+            <div className="mt-3 mobile:text-lg text-sm ">
                 <button
                     type="submit"
                     className="w-fit px-6 bg-black text-white py-2 rounded-md hover:bg-gray-800 transition"

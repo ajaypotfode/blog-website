@@ -26,33 +26,33 @@ export default function Home() {
 
   return (
     <div className="h-screen flex flex-col bg-gray-200  overflow-y-auto  overflow-x-hidden">
-      <header className="flex justify-between items-center px-6 py-4 text-black">
-        <div className="text-2xl font-bold flex items-center space-x-2">
-          <span className="font-bold text-4xl"><i className="bi bi-journal-text"></i></span>
+      <header className="flex justify-between items-center mobile:px-6 px-4 py-4 text-black">
+        <div className="mobile:text-2xl text-xl font-bold flex items-center space-x-2">
+          <span className="font-bold mobile:text-4xl text-2xl"><i className="bi bi-journal-text"></i></span>
           <span>My Blogs</span>
         </div>
-        <div className="flex gap-4">
-          <button className="px-4 py-2  bg-black text-white rounded hover:bg-gray-800 h-fit cursor-pointer whitespace-nowrap"
+        <div className="flex mobile:gap-4 gap-2">
+          <button className="mobile:px-4 py-2 px-2 sm:text-lg mobile:text-md text-xs bg-black text-white rounded hover:bg-gray-800 h-fit cursor-pointer whitespace-nowrap"
             onClick={handleAddBlog}>
             Admin Panel
           </button>
           {
-            !isLogedIn ? <Link href='/login' className="px-4 py-2 bg-black text-white rounded hover:bg-gray-800 h-fit">Login</Link>
-              : <div className="px-4 py-2 bg-black text-white rounded hover:bg-gray-800 h-fit cursor-pointer" onClick={() => getLogoutUser()}>LogOut</div>
+            !isLogedIn ? <Link href='/login' className="mobile:px-4 py-2 px-2 sm:text-lg mobile:text-md text-xs bg-black text-white rounded hover:bg-gray-800 h-fit">Login</Link>
+              : <button className="mobile:px-4 py-2 px-2 sm:text-lg mobile:text-md text-xs bg-black text-white rounded hover:bg-gray-800 h-fit cursor-pointer" onClick={() => getLogoutUser()}>LogOut</button>
           }
 
         </div>
       </header>
       <section className="flex-1 flex flex-col items-center text-center mt-4 px-4 text-black">
-        <h1 className="md:text-4xl text-3xl font-bold">Latest Blogs</h1>
-        <p className="text-gray-600 mt-4 max-w-xl mx-auto">
+        <h1 className="md:text-4xl mobile:text-3xl text-2xl font-bold">Latest Blogs</h1>
+        <p className="text-gray-600 mt-4 max-w-xl mx-auto sm:text-lg mobile:text-md text-xs ">
           Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry standard dummy text ever.
         </p>
-        <div className="mt-10 flex justify-center sm:space-x-6 space-x-3 overflow-x-auto">
+        <div className="mt-10 flex justify-center sm:text-lg mobile:text-md text-xs sm:space-x-6 space-x-3 overflow-x-auto">
           {["all", "music", "games", "sports"].map((item, idx) => (
             <button
               key={item}
-              className={`px-4 py-1 rounded ${idx === activeCategory ? "bg-black text-white" : "text-black cursor-pointer"
+              className={`mobile:px-4 px-2 py-1 rounded ${idx === activeCategory ? "bg-black text-white" : "text-black cursor-pointer"
                 }`}
               onClick={() => {
                 fetchBlogs(item)
