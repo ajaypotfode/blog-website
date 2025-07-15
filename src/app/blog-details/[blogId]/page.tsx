@@ -54,7 +54,7 @@ const Blog = ({ params }: { params: Promise<{ blogId: string }> }) => {
 
                         <div className=" max-w-3xl  md:w-[70%] mobile:w-[90%] w-[95%] ">
                             <div className="w-full mobile:h-60 h-48 border mb-2 border-black">
-                                <Image src={singleBlog.image} alt={singleBlog.title} className="rounded shadow w-full h-full" width={100} height={100} />
+                                <Image src={singleBlog.image} alt={singleBlog.title} className="rounded shadow w-full h-full" width={120} height={120} quality={100} />
                             </div>
                             <div className="mobile:text-lg text-md text-black text-start tracking-tight mobile:whitespace-pre-wrap">
                                 {parse(singleBlog.description)}
