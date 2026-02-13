@@ -5,7 +5,7 @@ import { cookies } from 'next/headers'
 
 const JWT_SECRET = process.env.JWT_SECRET || ""
 
-export const generateToken = (user: { id: Types.ObjectId}) => {
+export const generateToken = (user: { id: Types.ObjectId }) => {
     return jwt.sign(user, JWT_SECRET, { expiresIn: '1d' })
 }
 

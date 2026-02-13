@@ -19,7 +19,8 @@ export interface SignUpResponse {
         createdAt: string,
         updatedAt: string,
         __v: number
-    }
+    },
+    error?: unknown
 }
 
 export type LoginData = {
@@ -40,7 +41,8 @@ export interface LoginResponse {
         updatedAt: string,
         __v: number,
         token: string
-    }
+    },
+    error?: unknown
 }
 
 export interface LogoutResponse {

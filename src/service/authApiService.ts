@@ -3,7 +3,7 @@ import axios from "axios";
 
 
 
-export const signupUserAPI = async (userData: UserData): Promise<SignUpResponse> => {
+export const signupUserAPI = async (userData: UserData): Promise<SignUpResponse|unknown> => {
     const data = JSON.stringify(userData);
 
     const config = {

@@ -15,7 +15,7 @@ const NotificationTemplate = ({
     return (
         <html>
             <body>
-                <h1>New Blog Dropped Just!!</h1>
+                <h1>New Blog Just Dropped!!</h1>
                 <h4>{blogTitle}</h4>
                 <Link
                     href={blogUrl}

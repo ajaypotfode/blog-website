@@ -11,9 +11,9 @@ export async function middleware(request: NextRequest) {
 
     if (!token?.value && protectedRoute.some((route) => pathname.startsWith(route))) {
         // console.log("midlware token not having :", pathname);
-        const redirectUrl = new URL('/login', request.url)
-        redirectUrl.searchParams.set('error', 'login_required')
-        return NextResponse.redirect(redirectUrl)
+        const redirectUrl = new URL('/login', request.url);
+        redirectUrl.searchParams.set('error', 'login_required');
+        return NextResponse.redirect(redirectUrl);
     }
 
     if (token?.value && (pathname === '/register' || pathname === '/login')) {
