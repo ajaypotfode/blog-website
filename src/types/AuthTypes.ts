@@ -3,7 +3,17 @@
 export type UserData = {
     userName: string,
     password: string,
-    email: string
+    email: string,
+    image: string
+}
+
+export interface User {
+    _id: string;
+    email: string,
+    password: string,
+    userName: string,
+    isVerified: boolean,
+    image: string;
 }
 
 

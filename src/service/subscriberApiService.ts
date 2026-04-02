@@ -1,68 +1,32 @@
-import { GetSingleSubscriberResponse, GetSubscriberResponse, SubscriberData } from "@/types/SubscriberType";
-import axios from "axios";
+import api from "@/axios/axios";
+import { GetSingleSubscriberResponse, GetSubscriberResponse } from "@/types/SubscriberType";
 
-export const getSubscriberAPI = async (): Promise<GetSubscriberResponse> => {
-    // const data = JSON.stringify({ title, category, image, description })
-    const config = {
-        method: 'get',
-        maxBodyLength: Infinity,
-        url: '/api/subscriber',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        // data: data
-    };
-
-    try {
-        const response = await axios.request<GetSubscriberResponse>(config)
-        return response.data
-    } catch (error: unknown) {
-        console.error('failed To Fetch Subscribers :', error);
-        throw error;
+export const getSubscriberAPI = async (lastId?: string): Promise<GetSubscriberResponse> => {
+    const params = { lastId }
+    const response = await api.get<GetSubscriberResponse>('/api/subscriber', { params });
+    if (response.data.success) {
+        return response.data;
     }
+    throw new Error(response.data.message)
 }
 
 
+export const addSubscriberAPI = async (autherId: string): Promise<GetSingleSubscriberResponse> => {
 
-export const addSubscriberAPI = async (subscriberData: SubscriberData): Promise<GetSingleSubscriberResponse> => {
-    const data = JSON.stringify(subscriberData)
-    const config = {
-        method: 'post',
-        maxBodyLength: Infinity,
-        url: '/api/subscriber',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        data: data
-    };
-
-    try {
-        const response = await axios.request<GetSingleSubscriberResponse>(config)
-        return response.data
-    } catch (error: unknown) {
-        console.error('failed To Add Subscribers :', error);
-        throw error;
+    const response = await api.post<GetSingleSubscriberResponse>('/api/subscriber', { autherId });
+    if (response.data.success) {
+        return response.data;
     }
+    throw new Error(response.data.message)
 }
 
 
 export const deleteSubscriberAPI = async (subscriberId: string): Promise<GetSingleSubscriberResponse> => {
-    const data = JSON.stringify({ subscriberId })
-    const config = {
-        method: 'delete',
-        maxBodyLength: Infinity,
-        url: '/api/subscriber',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        data: data
-    };
 
-    try {
-        const response = await axios.request<GetSingleSubscriberResponse>(config)
-        return response.data
-    } catch (error: unknown) {
-        console.error('failed delete Subscribers :', error);
-        throw error;
+    const params = { subscriberId }
+    const response = await api.delete<GetSingleSubscriberResponse>('/api/subscriber', { params });
+    if (response.data.success) {
+        return response.data;
     }
+    throw new Error(response.data.message)
 }

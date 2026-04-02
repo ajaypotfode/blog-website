@@ -1,17 +1,22 @@
-import SubscriberModel from "@/model/subscriberSchema";
+// import SubscriberModel from "@/model/subscriberSchema";
+import SubscriberModel from "@/schema/SubscriberSchema";
 import { databaseConnection } from "@/utils/db"
 import { getLoggedInUser } from "@/utils/jwtVerification";
-import { NextResponse } from "next/server";
+import { Types } from "mongoose";
+import { NextRequest, NextResponse } from "next/server";
 
 export const POST = async (req: Request) => {
     try {
-        const { autherId, email } = await req.json()
+        const { autherId } = await req.json()
 
+        const logedUser = await getLoggedInUser()
+
+        if (!logedUser) {
+            return NextResponse.json({ message: "unAuthorized User!!", success: false }, { status: 401 })
+        }
         await databaseConnection();
 
-        const subscriber = await SubscriberModel.findOne({ email, autherId })
-
-        // console.log("subscriber is :", subscriber);
+        const subscriber = await SubscriberModel.findOne({ userId: logedUser.id, autherId })
 
 
         if (subscriber) {
@@ -20,7 +25,7 @@ export const POST = async (req: Request) => {
 
         const newSubscriber = new SubscriberModel({
             autherId,
-            email,
+            userId: logedUser.id
         })
 
         const result = await newSubscriber.save()
@@ -35,7 +40,10 @@ export const POST = async (req: Request) => {
 
 
 
-export const GET = async () => {
+export const GET = async (req: NextRequest) => {
+    const lastId = req.nextUrl.searchParams.get('lastId');
+    const limit = 1;
+
     try {
         const logedUser = await getLoggedInUser();
         await databaseConnection();
@@ -44,8 +52,26 @@ export const GET = async () => {
             return NextResponse.json({ message: "unAuthorized User!!", success: false }, { status: 401 })
         }
 
-        const subscribers = await SubscriberModel.find({ autherId: logedUser?.id })
-        return NextResponse.json({ message: "You have successFully Fteched Subscribers!!", success: true, result: subscribers }, { status: 200 })
+        let totalSubscribers: null | number = null
+
+        if (!lastId) {
+            totalSubscribers = await SubscriberModel.countDocuments({ autherId: logedUser.id })
+        }
+
+        const subscribers = await SubscriberModel.find({
+            autherId: logedUser?.id,
+            ...(lastId && { _id: { $lt: new Types.ObjectId(lastId) } })
+        })
+            .sort({ _id: -1 })
+            .limit(limit)
+            .populate("userId", "userName email image createdAt");
+
+        return NextResponse.json({
+            message: "You have successFully Fteched Subscribers!!",
+            success: true,
+            result: subscribers,
+            ...(totalSubscribers !== null && { total: totalSubscribers })
+        }, { status: 200 })
 
     } catch (error: unknown) {
         const message = error instanceof Error ? error.message : "Something Went Worong"
@@ -55,9 +81,9 @@ export const GET = async () => {
 
 
 
-export const DELETE = async (req: Request) => {
+export const DELETE = async (req: NextRequest) => {
     try {
-        const { subscriberId } = await req.json()
+        const subscriberId = req.nextUrl.searchParams.get('subscriberId')
         const logedUser = await getLoggedInUser()
         await databaseConnection()
 

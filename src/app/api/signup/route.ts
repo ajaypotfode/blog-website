@@ -1,11 +1,11 @@
-import UserModel from "@/model/userSchema";
+import UserModel from "@/schema/UserSchema";
 import { databaseConnection } from "@/utils/db";
 import { hash } from "bcryptjs";
 import { NextResponse } from "next/server";
 
 export const POST = async (req: Request) => {
     try {
-        const { email, password, userName } = await req.json();
+        const { email, password, userName, image } = await req.json();
         await databaseConnection()
 
         const user = await UserModel.findOne({
@@ -23,7 +23,8 @@ export const POST = async (req: Request) => {
         const newUser = new UserModel({
             userName,
             password: hashedPassword,
-            email
+            email,
+            image
         })
 
         const result = await newUser.save();

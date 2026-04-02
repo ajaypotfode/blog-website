@@ -1,9 +1,7 @@
-import { setFormErrors } from "@/redux/slice/globalSlice";
 import { BlogData } from "@/types/BlogTypes";
-import { Dispatch } from "@reduxjs/toolkit";
 
-const blogFormValidate = (formData: BlogData, dispatch: Dispatch): boolean => {
-    const blogErrors = { title: "", category: "", image: "", description: "" }
+const blogFormValidate = (formData: BlogData) => {
+    const blogErrors = { title: "", category: "", image: "", description: "", content: "" }
     let validate = true
 
     if (!formData.title) {
@@ -21,13 +19,20 @@ const blogFormValidate = (formData: BlogData, dispatch: Dispatch): boolean => {
         validate = false
     }
 
+    if (!formData.content) {
+        blogErrors.content = "blog Content Is Required"
+        validate = false
+    }
+
     if (!formData.image) {
         blogErrors.image = "blog Image Is Required"
         validate = false
     }
 
-    dispatch(setFormErrors(blogErrors))
-    return validate
+    return {
+        validate,
+        blogErrors
+    }
 
 }
 

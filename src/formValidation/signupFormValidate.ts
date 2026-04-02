@@ -1,10 +1,8 @@
-import { setFormErrors } from "@/redux/slice/globalSlice"
 import { UserData } from "@/types/AuthTypes"
-import { Dispatch } from "@reduxjs/toolkit"
-// import { ThunkDispatch } from "@reduxjs/toolkit"
 
-const signupFormValidate = (formData: UserData, dispatch: Dispatch): boolean => {
-    const signupErrors = { email: "", password: "", userName: "" }
+
+const signupFormValidate = (formData: UserData) => {
+    const signupErrors = { email: "", password: "", userName: "", image: "" }
     let validate = true
 
     if (!formData.userName || formData.userName.length < 2) {
@@ -23,9 +21,8 @@ const signupFormValidate = (formData: UserData, dispatch: Dispatch): boolean => 
         validate = false
     }
 
-    dispatch(setFormErrors(signupErrors))
 
-    return validate
+    return { validate, signupErrors }
 }
 
 export default signupFormValidate

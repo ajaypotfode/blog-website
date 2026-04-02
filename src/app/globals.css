@@ -1,9 +1,11 @@
 @import "tailwindcss";
 
+
 :root {
   --background: #ffffff;
-  --foreground: #171717;
+  --foreground: #000000;
 }
+
 
 @theme inline {
   --color-background: var(--background);
@@ -14,12 +16,27 @@
   /* --breakpoint-sm: */
 }
 
-@media (prefers-color-scheme: dark) {
+/* @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;
     --foreground: #ededed;
-    /* box-shadow: 10px 10px 10px ; */
   }
+} */
+
+
+@layer utilities {
+  .shadow-soft {
+    box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.05);
+  }
+
+  .shadow-soft-hover {
+    box-shadow: 0 10px 30px -4px rgba(0, 0, 0, 0.08);
+  }
+
+  .glass-nav {
+    @apply bg-white/80 backdrop-blur-md border-b border-gray-100;
+  }
+  /* .border-gray-300 { @apply border-gray-300;} */
 }
 
 body {
@@ -86,4 +103,21 @@ body {
     transform: translateX(-100%) !important;
 
   }
+}
+
+.border {
+  border-color: rgba(209, 213, 219, 0.5);
+}
+
+
+.rsw-ce h1 {
+  font-size: 2rem !important;
+}
+
+.rsw-ce h2 {
+  font-size: 1.5rem !important;
+}
+
+.rsw-ce h3 {
+  font-size: 1.17rem !important;
 }

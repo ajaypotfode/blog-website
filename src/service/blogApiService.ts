@@ -1,135 +1,70 @@
-// import { Blog } from "@/model/blogSchema";
-import { BlogData, GetAdminBlogsResponse, GetBlogsResponse, GetSingleBlogResponse } from "@/types/BlogTypes";
-import axios from "axios";
-// import axios, { AxiosResponse } from "axios";
+// import { Blog } from "@/schema/blogSchema";
+import api from "@/axios/axios";
+import { CommentData, GetBlogsResponse, GetCommentedBlogResponse, GetCommentsResponse, GetLikedBlogResponse, GetSingleBlogResponse } from "@/types/BlogTypes";
 
-export const getBlogAPI = async (category: string): Promise<GetBlogsResponse> => {
+export const getBlogAPI = async (): Promise<GetBlogsResponse> => {
+
+    const response = await api.get<GetBlogsResponse>('/api/blog');
+    if (response.data.success) {
+        return response.data;
+    }
+    throw new Error(response.data.message)
+}
+
+
+export const likeBlogAPI = async (likeData: { blogId: string, category: string }): Promise<GetLikedBlogResponse> => {
+
+    const response = await api.post<GetLikedBlogResponse>('/api/blog/like', likeData);
+    if (response.data.success) {
+        return response.data;
+    }
+    throw new Error(response.data.message)
+
+}
+
+
+export const commentBlogAPI = async (commentData: CommentData): Promise<GetCommentedBlogResponse> => {
+
+    const response = await api.post<GetCommentedBlogResponse>('/api/blog/comment', commentData);
+    if (response.data.success) {
+        return response.data;
+    }
+    throw new Error(response.data.message)
+
+}
+
+
+export const fetchCommentsAPI = async (params: { blogId: string, lastId?: string }): Promise<GetCommentsResponse> => {
+
+    const response = await api.get<GetCommentsResponse>('/api/blog/comment', { params });
+    if (response.data.success) {
+        return response.data;
+    }
+    throw new Error(response.data.message)
+
+}
+
+
+export const getTrendingBlogAPI = async (): Promise<GetBlogsResponse> => {
     // const data = JSON.stringify(loginData)
-    const config = {
-        method: 'get',
-        maxBodyLength: Infinity,
-        url: `/api/blog?category=${category}`,
-        headers: {
-            'Content-Type': 'application/json',
-        },
-    };
 
-    try {
-        const response = await axios.request<GetBlogsResponse>(config)
-        return response.data
-    } catch (error: unknown) {
-        console.error('failed To Fetch Blogs :', error);
-        throw error;
+    const response = await api.get<GetBlogsResponse>('/api/blog/trending');
+    if (response.data.success) {
+        return response.data;
     }
+    throw new Error(response.data.message)
 }
 
 
-
-export const addBlogAPI = async (blogData: BlogData): Promise<GetSingleBlogResponse> => {
-    const data = JSON.stringify(blogData)
-    const config = {
-        method: 'post',
-        maxBodyLength: Infinity,
-        url: '/api/blog',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        data: data
-    };
-
-    try {
-        const response = await axios.request<GetSingleBlogResponse>(config)
-        // console.log("add blog response is :", response);
-
-        return response.data
-    } catch (error: unknown) {
-        console.error('failed To Add Blogs :', error);
-        throw error;
-    }
-}
-
-
-
-// export const updateBlogAPI = async ({ title, blogId, category, image, description }: BlogData): Promise<GetSingleBlogResponse> => {
-//     const data = JSON.stringify({ title, category, image, description })
-//     const config = {
-//         method: 'post',
-//         maxBodyLength: Infinity,
-//         url: `/api/blog/${blogId}`,
-//         headers: {
-//             'Content-Type': 'application/json',
-//         },
-//         data: data
-//     };
-
-//     try {
-//         const response = await axios.request<GetSingleBlogResponse>(config)
-//         return response.data
-//     } catch (error: unknown) {
-//         console.error('failed To Update Blogs :', error);
-//         throw error
-//     }
-// }
-
-
-export const deleteBlogAPI = async (blogId: string): Promise<GetSingleBlogResponse> => {
-    // const data = JSON.stringify({ title, category, image, description })
-    const config = {
-        method: 'delete',
-        maxBodyLength: Infinity,
-        url: `/api/blog/${blogId}`,
-        headers: {
-            'Content-Type': 'application/json',
-        }
-    };
-
-    try {
-        const response = await axios.request<GetSingleBlogResponse>(config)
-        return response.data
-    } catch (error: unknown) {
-        console.error('failed To delete Blogs :', error);
-        throw error;
-    }
-}
-
-
-export const getOneBlogAPI = async (blogId: string): Promise<GetSingleBlogResponse> => {
+export const getBlogByIdAPI = async (blogdata: { blogId: string, sessionId?: string }): Promise<GetSingleBlogResponse> => {
     // const data = JSON.stringify(loginData)
-    const config = {
-        method: 'get',
-        maxBodyLength: Infinity,
-        url: `/api/blog/${blogId}`,
-        headers: {
-            'Content-Type': 'application/json',
-        },
-    };
 
-    try {
-        const response = await axios.request<GetSingleBlogResponse>(config)
-        return response.data
-    } catch (error: unknown) {
-        console.error('failed To Fetch Blog :', error);
-        throw error;
+    const params = { sessionId: blogdata.sessionId }
+    const response = await api.get<GetSingleBlogResponse>(`/api/blog/${blogdata.blogId}`, { params });
+    if (response.data.success) {
+        return response.data;
     }
+    throw new Error(response.data.message)
+
 }
 
-
-export const getAdminBlogAPI = async (): Promise<GetAdminBlogsResponse> => {
-    // const data = JSON.stringify(loginData)
-    const config = {
-        method: 'get',
-        maxBodyLength: Infinity,
-        url: `/api/admin-blogs`,
-        headers: {
-            'Content-Type': 'application/json',
-        },
-    };
-
-    try {
-        const response = await axios.request<GetAdminBlogsResponse>(config)
-        return response.data
-    } catch (error: unknown) {
-        console.error('failed To getAdmin Blogs :', error);
-        throw error;
-    }
-}

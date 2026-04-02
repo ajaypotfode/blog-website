@@ -6,13 +6,18 @@ export async function middleware(request: NextRequest) {
     const token = await request.cookies.get('blogToken')
 
 
-    const protectedRoute = ['/admin/addblog', '/admin/blog-list', '/admin/subscribers']
+    const protectedRoute = [
+        '/admin/add-blog',
+        '/admin/blog-list',
+        '/admin/subscribers',
+        '/admin/saved',
+        '/admin/myFeed'
+    ]
     // console.log("midlware is having token  :", token?.value?);
 
     if (!token?.value && protectedRoute.some((route) => pathname.startsWith(route))) {
         // console.log("midlware token not having :", pathname);
         const redirectUrl = new URL('/login', request.url);
-        redirectUrl.searchParams.set('error', 'login_required');
         return NextResponse.redirect(redirectUrl);
     }
 

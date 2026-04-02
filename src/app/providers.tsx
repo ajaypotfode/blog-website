@@ -1,43 +1,28 @@
 "use client"
 
-import store from "@/redux/store"
-import { usePathname, useRouter, useSearchParams } from "next/navigation"
-import { Suspense, useEffect } from "react"
-import { Provider } from "react-redux"
-import { toast } from "react-toastify"
+import Navbar from "@/component/Navbar";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { usePathname } from "next/navigation"
 
 interface ProviderProps {
     children: React.ReactNode
 }
 
-const Providers: React.FC<ProviderProps> = ({ children }) => {
-    const searchparams = useSearchParams()
-    const error = searchparams.get('error')
-    const router = useRouter();
-    const pathname = usePathname();
-
-    useEffect(() => {
-        // console.log();
-
-        if (error === 'login_required') {
-            toast.error("create Your Blog Account or Login First")
-            router.replace(pathname)
-        }
-
-    }, [error, pathname])
-
-    return (
-        <Provider store={store}>{children}</Provider>
-    )
-}
-
-
+const queryClient = new QueryClient();
 
 const ProviderWrapper: React.FC<ProviderProps> = ({ children }) => {
+    const pathName = usePathname();
+    const condition = pathName !== '/login' && pathName !== '/register'
+
     return (
-        <Suspense>
-            <Providers>{children} </Providers>
-        </Suspense>
+        <QueryClientProvider client={queryClient}>
+            <main className=" border border-red-600 font-serif  ">
+                {condition && <Navbar />}
+                {children}
+            </main>
+
+            {/* <ReactQueryDevtools initialIsOpen={false} /> */}
+        </QueryClientProvider>
     )
 }
 

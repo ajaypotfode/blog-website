@@ -4,20 +4,26 @@ export type SubscriberData = {
 }
 
 export interface SubscriberResult {
-    _id: string,
-    autherId: string,
-    email: string,
-    date: string,
-    createdAt: string,
-    updatedAt: string,
+    _id: string;
+    autherId: string;
+    userId: {
+        _id: string;
+        email: string;
+        userName: string;
+        createdAt: string;
+        image: string
+    };
+    createdAt: string;
+    updatedAt: string;
     __v: number
 }
 
 
 export interface GetSubscriberResponse {
-    message: string,
+    message: string;
     success: boolean,
-    result?: SubscriberResult[]
+    result: SubscriberResult[];
+    total: number;
     error?: unknown
 
 }
@@ -33,7 +39,7 @@ export interface GetSingleSubscriberResponse {
 
 export interface SubscriberInitialState {
     subscribers: SubscriberResult[],
-    email:string
+    email: string
 }
 
 

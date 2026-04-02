@@ -5,20 +5,20 @@ const nextConfig: NextConfig = {
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: 'firebasestorage.googleapis.com',
-        pathname: '/v0/b/**' // Adjust this to match the path structure in your URLs
+        hostname: 'z6ubkv3oaqzyvcai.public.blob.vercel-storage.com',
+        pathname: '/**' // Adjust this to match the path structure in your URLs
       }
     ],
   },
-  async redirects() {
-    return [
-      {
-        source: '/admin',
-        destination: '/admin/addblog',
-        permanent: true
-      }
-    ]
-  }
+  // async redirects() {
+  //   return [
+  //     {
+  //       source: '/admin',
+  //       destination: '/admin/addblog',
+  //       permanent: false
+  //     }
+  //   ]
+  // }
 };
 
 export default nextConfig;

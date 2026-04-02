@@ -1,8 +1,6 @@
-import { setFormErrors } from "@/redux/slice/globalSlice";
 import { LoginData } from "@/types/AuthTypes";
-import { Dispatch } from "@reduxjs/toolkit";
 
-const loginFormValidate = (formData: LoginData, dispatch: Dispatch): boolean => {
+const loginFormValidate = (formData: LoginData) => {
     const loginErros = { email: "", password: "" }
     let validate = true
 
@@ -15,8 +13,8 @@ const loginFormValidate = (formData: LoginData, dispatch: Dispatch): boolean => 
         loginErros.password = "Passwrd is required"
         validate = false
     }
-    dispatch(setFormErrors(loginErros))
-    return validate
+
+    return{ validate,loginErros}
 }
 
 export default loginFormValidate

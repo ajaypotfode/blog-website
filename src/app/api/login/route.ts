@@ -1,4 +1,4 @@
-import UserModel, { CustomeUser } from "@/model/userSchema"
+import UserModel, { CustomeUser } from "@/schema/UserSchema"
 import { databaseConnection } from "@/utils/db"
 import { generateToken } from "@/utils/jwtVerification"
 import { compare } from "bcryptjs"
