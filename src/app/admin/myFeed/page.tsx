@@ -17,9 +17,9 @@ const MyFeed = () => {
     //   const [topStories, setTopStories] = useAtom(topstoriesAtom);
     const [trendingBlogs, setTrendingBlogs] = useAtom(trendingBlogsAtom);
     const [logedInUser] = useAtom(userAtom);
-    const { isPending: isBlogsPending, mutate: getBlogs } = useGetTopStoriesMutation();
-    const { isPending: isTrendingBlogsPending, mutate: getTrendingBlogs } = useGetTrendingBlogsMutation();
-    const { isPending: isRecomendedBlogsPending, mutate: getRecomendedBlogs } = useGetRecomendedBlogsMutation();
+    const { isPending: isBlogsPending, mutateAsync: getBlogs } = useGetTopStoriesMutation();
+    const { isPending: isTrendingBlogsPending, mutateAsync: getTrendingBlogs } = useGetTrendingBlogsMutation();
+    const { isPending: isRecomendedBlogsPending, mutateAsync: getRecomendedBlogs } = useGetRecomendedBlogsMutation();
 
     const fetchBlogs = () => {
         getBlogs(
@@ -65,10 +65,17 @@ const MyFeed = () => {
         );
     }
 
+
+    const fetchData = async () => {
+        await Promise.all([
+            fetchBlogs(),
+            fetchTrendingBlogs(),
+            fetchRecomendedBlogs()
+        ]);
+    };
+
     useEffect(() => {
-        fetchBlogs();
-        fetchTrendingBlogs();
-        fetchRecomendedBlogs();
+        fetchData()
     }, [])
 
     return (
