@@ -1,4 +1,4 @@
-import mongoose, { Schema, Types, Document } from "mongoose";
+import mongoose, { Schema, Types, Document, Model } from "mongoose";
 
 export interface SavedBlog extends Document {
     _id: Types.ObjectId,
@@ -20,6 +20,6 @@ const SavedBlogSchema: Schema<SavedBlog> = new Schema({
 }, { timestamps: true })
 
 
-const SavedBlogModel = mongoose.models.savedBlogs as mongoose.Model<SavedBlog> || mongoose.model("savedBlogs", SavedBlogSchema)
+const SavedBlogModel:Model<SavedBlog> = mongoose.models.savedBlogs || mongoose.model("savedBlogs", SavedBlogSchema)
 
 export default SavedBlogModel

@@ -1,4 +1,4 @@
-import mongoose, { Schema, Types, Document } from "mongoose";
+import mongoose, { Schema, Types, Document, Model } from "mongoose";
 
 export interface Subscriber extends Document {
     _id: Types.ObjectId,
@@ -21,6 +21,6 @@ const SubscriberSchema: Schema<Subscriber> = new Schema({
 
 SubscriberSchema.index({ autherId: 1, userId: 1 })
 
-const SubscriberModel = mongoose.models.subscribers as mongoose.Model<Subscriber> || mongoose.model("subscribers", SubscriberSchema)
+const SubscriberModel:Model<Subscriber>  = mongoose.models.subscribers|| mongoose.model("subscribers", SubscriberSchema)
 
 export default SubscriberModel

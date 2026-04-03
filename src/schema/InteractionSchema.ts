@@ -1,4 +1,4 @@
-import mongoose, { Document, Schema, Types } from "mongoose";
+import mongoose, { Document, Model, Schema, Types } from "mongoose";
 
 export interface Interaction extends Document {
     _id: Types.ObjectId,
@@ -57,6 +57,6 @@ InteractionSchema.index(
 InteractionSchema.index({ blogId: 1, type: 1, userId: 1 });
 InteractionSchema.index({ blogId: 1, type: 1, sessionId: 1 });
 
-const InteractionModel = mongoose.models.interactions as mongoose.Model<Interaction> || mongoose.model<Interaction>("interactions", InteractionSchema);
+const InteractionModel:Model<Interaction> = mongoose.models.interactions || mongoose.model<Interaction>("interactions", InteractionSchema);
 
 export default InteractionModel

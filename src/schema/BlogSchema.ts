@@ -1,4 +1,4 @@
-import mongoose, { Schema, Document, Types } from "mongoose"
+import mongoose, { Schema, Document, Types, Model } from "mongoose"
 import { User } from "./UserSchema"
 
 export interface Blog extends Document {
@@ -52,6 +52,6 @@ const BlogSchema: Schema<Blog> = new Schema({
 }, { timestamps: true })
 
 
-const BlogModel = mongoose.models.blogs as mongoose.Model<Blog> || mongoose.model<Blog>("blogs", BlogSchema)
+const BlogModel: Model<Blog>  = mongoose.models.blogs || mongoose.model<Blog>("blogs", BlogSchema)
 
 export default BlogModel

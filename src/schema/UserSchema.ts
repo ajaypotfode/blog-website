@@ -1,4 +1,4 @@
-import mongoose, { Schema, Document, Types } from "mongoose";
+import mongoose, { Schema, Document, Types, Model } from "mongoose";
 
 export interface User extends Document {
     _id: Types.ObjectId,
@@ -42,6 +42,6 @@ export const UserSchema: Schema<User> = new Schema({
 }, { timestamps: true })
 
 
-const UserModel = mongoose.models.users as mongoose.Model<User> || mongoose.model<User>("users", UserSchema)
+export const UserModel: Model<User> = mongoose.models.users || mongoose.model<User>("users", UserSchema);
 
 export default UserModel

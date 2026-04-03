@@ -1,4 +1,4 @@
-import mongoose, { Document, Schema, Types } from "mongoose";
+import mongoose, { Document, Model, Schema, Types } from "mongoose";
 
 export interface PersonalFeed extends Document {
     _id: Types.ObjectId,
@@ -36,6 +36,6 @@ const PersonalFeedSchema: Schema<PersonalFeed> = new Schema({
 // )
 
 
-const PersonalFeedModel = mongoose.models.myFeeds as mongoose.Model<PersonalFeed> || mongoose.model<PersonalFeed>("myFeeds", PersonalFeedSchema);
+const PersonalFeedModel: Model<PersonalFeed> = mongoose.models.myFeeds || mongoose.model<PersonalFeed>("myFeeds", PersonalFeedSchema);
 
 export default PersonalFeedModel

@@ -1,4 +1,4 @@
-import mongoose, { Document, Schema, Types } from "mongoose";
+import mongoose, { Document, Model, Schema, Types } from "mongoose";
 
 export interface Comment extends Document {
     _id: Types.ObjectId,
@@ -30,6 +30,6 @@ CommentSchema.index(
     { blogId: 1 }
 )
 
-const CommentModel = mongoose.models.comments as mongoose.Model<Comment> || mongoose.model<Comment>("comments", CommentSchema);
+const CommentModel: Model<Comment> = mongoose.models.comments || mongoose.model<Comment>("comments", CommentSchema);
 
 export default CommentModel
