@@ -42,11 +42,9 @@ const Blog = ({ params }: { params: Promise<{ blogId: string }> }) => {
 
 
     const getBlog = () => {
-        const payload = {
-            blogId: blogId
-        }
+
         fetchBlogData(
-            payload,
+            blogId,
             {
                 onSuccess: (data) => {
                     setBlogData(data.result);
@@ -92,12 +90,13 @@ const Blog = ({ params }: { params: Promise<{ blogId: string }> }) => {
 
     useEffect(() => {
         getBlog();
+        getComments();
     }, []);
 
     // this made cuase of Hydration Issue 
-    useEffect(() => {
-        if (isLoggedIn) getComments();
-    }, [isLoggedIn]);
+    // useEffect(() => {
+    //     if (isLoggedIn) getComments();
+    // }, [isLoggedIn]);
 
 
     const submitComment = (e: React.MouseEvent<HTMLButtonElement>) => {

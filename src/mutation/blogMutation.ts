@@ -12,8 +12,8 @@ export const useGetBlogsMutation = () => {
 
 export const useGetBlogByIdMutation = () => {
     return useMutation({
-        mutationFn: (blogData: { blogId: string, sessionId?: string }) => {
-            return getBlogByIdAPI(blogData)
+        mutationFn: (blogId: string,) => {
+            return getBlogByIdAPI(blogId)
         }
     })
 }

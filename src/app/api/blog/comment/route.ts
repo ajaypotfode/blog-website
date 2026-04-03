@@ -40,13 +40,13 @@ export const GET = async (req: NextRequest) => {
     const blogId = req.nextUrl.searchParams.get("blogId");
     const lastId = req.nextUrl.searchParams.get('lastId');
     const limit = 10;
-    const logedUser = await getLoggedInUser();
+    // const logedUser = await getLoggedInUser();
 
     await databaseConnection()
 
-    if (!logedUser) {
-        return NextResponse.json({ message: "unAuthorized User!!", success: false }, { status: 401 })
-    }
+    // if (!logedUser) {
+    //     return NextResponse.json({ message: "unAuthorized User!!", success: false }, { status: 401 })
+    // }
     try {
         await databaseConnection()
 

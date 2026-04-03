@@ -56,11 +56,10 @@ export const getTrendingBlogAPI = async (): Promise<GetBlogsResponse> => {
 }
 
 
-export const getBlogByIdAPI = async (blogdata: { blogId: string, sessionId?: string }): Promise<GetSingleBlogResponse> => {
+export const getBlogByIdAPI = async (blogId:string): Promise<GetSingleBlogResponse> => {
     // const data = JSON.stringify(loginData)
 
-    const params = { sessionId: blogdata.sessionId }
-    const response = await api.get<GetSingleBlogResponse>(`/api/blog/${blogdata.blogId}`, { params });
+    const response = await api.get<GetSingleBlogResponse>(`/api/blog/${blogId}`);
     if (response.data.success) {
         return response.data;
     }

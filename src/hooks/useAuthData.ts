@@ -6,6 +6,7 @@ const useAuthData = () => {
     const { mutate, isPending } = useLogoutUserMutation();
     const openToast = useSetAtom(openToastAtom)
     const logout = () => {
+        if (isPending) return;
         mutate(
             undefined,
             {

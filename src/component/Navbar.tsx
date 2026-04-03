@@ -7,13 +7,14 @@ import { Bookmark, BookOpen, LayoutDashboard, LogOut, PenSquare, Users } from 'l
 import Link from 'next/link'
 import React, { useEffect, useRef, useState } from 'react'
 import Avatar from './Avatar'
+import { SmallComponentSpinner } from './Loaders'
 
 const Navbar = () => {
     const [isLoggedin] = useAtom(isLoggedinAtom);
     const [user] = useAtom(userAtom)
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
     const dropdownRef = useRef<HTMLDivElement>(null);
-    const { logout } = useAuthData();
+    const { logout,isPending } = useAuthData();
     const [isMounted, setIsMounted] = useState(false);
     // const 
 
@@ -114,10 +115,12 @@ const Navbar = () => {
 
                                         <button
                                             onClick={logout}
+                                            disabled={isPending}
                                             className=" cursor-pointer w-full text-left px-4 py-2 text-sm text-destructive hover:bg-red-300/10 flex items-center space-x-3 transition-colors"
                                         >
                                             <LogOut className="w-4 h-4" />
                                             <span>Sign Out</span>
+                                            {isPending&&<SmallComponentSpinner/>}
                                         </button>
                                     </div>
                                 )}

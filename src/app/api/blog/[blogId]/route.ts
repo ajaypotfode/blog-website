@@ -8,15 +8,19 @@ import { getLoggedInUser } from "@/utils/jwtVerification";
 import { NextRequest, NextResponse } from "next/server";
 import "@/schema/UserSchema";
 import SubscriberModel from "@/schema/SubscriberSchema";
+import { getSessionId } from "@/helpers/getSessionId";
 
 
 // Get Blog Details Api
 export const GET = async (req: NextRequest, { params }: { params: Promise<{ blogId: string }> }) => {
     try {
         const { blogId } = await params
-        const sessionId = req.nextUrl.searchParams.get("sessionId") || null;
+        const sessionId =await getSessionId();
         const logedUser = await getLoggedInUser();
         await databaseConnection()
+
+
+        console.log("sessionId   :", sessionId);
 
         const blog = await BlogModel.findById(blogId).populate('author', "userName image").lean()
 
@@ -52,8 +56,8 @@ export const GET = async (req: NextRequest, { params }: { params: Promise<{ blog
             await Promise.all([
                 InteractionModel.create({
                     blogId: blog._id,
-                    sessionId,
-                    userId: logedUser?.id,
+                    sessionId: logedUser?.id ? null : sessionId,
+                    userId: logedUser?.id ?? null,
                     type: "VIEW"
                 }),
                 BlogModel.findByIdAndUpdate(blog._id, {
