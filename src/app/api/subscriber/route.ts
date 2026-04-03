@@ -2,6 +2,7 @@
 import SubscriberModel from "@/schema/SubscriberSchema";
 import { databaseConnection } from "@/utils/db"
 import { getLoggedInUser } from "@/utils/jwtVerification";
+import "@/schema/UserSchema";
 import { Types } from "mongoose";
 import { NextRequest, NextResponse } from "next/server";
 
@@ -42,7 +43,7 @@ export const POST = async (req: Request) => {
 
 export const GET = async (req: NextRequest) => {
     const lastId = req.nextUrl.searchParams.get('lastId');
-    const limit = 1;
+    const limit = 10;
 
     try {
         const logedUser = await getLoggedInUser();

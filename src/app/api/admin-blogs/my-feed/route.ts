@@ -3,6 +3,7 @@ import PersonalFeedModel from "@/schema/PersonalFeddSchema"
 import { databaseConnection } from "@/utils/db"
 import { getLoggedInUser } from "@/utils/jwtVerification"
 import { NextResponse } from "next/server"
+import "@/schema/UserSchema";
 
 export const GET = async () => {
     const requiredLimit = 10;

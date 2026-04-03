@@ -2,6 +2,7 @@ import BlogModel from "@/schema/BlogSchema";
 import { databaseConnection } from "@/utils/db";
 import { getLoggedInUser } from "@/utils/jwtVerification";
 import { NextResponse } from "next/server";
+import "@/schema/UserSchema";
 
 export const GET = async () => {
 

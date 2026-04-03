@@ -4,6 +4,7 @@ import { databaseConnection } from "@/utils/db";
 import { getLoggedInUser } from "@/utils/jwtVerification";
 import { Types } from "mongoose";
 import { NextRequest, NextResponse } from "next/server";
+import "@/schema/UserSchema";
 
 export const POST = async (req: NextRequest) => {
     try {

@@ -3,6 +3,7 @@ import { databaseConnection } from "@/utils/db"
 import { getLoggedInUser } from "@/utils/jwtVerification"
 import { Types } from "mongoose"
 import { NextRequest, NextResponse } from "next/server"
+import "@/schema/UserSchema";
 
 export const GET = async (req: NextRequest) => {
     const lastId = req.nextUrl.searchParams.get('lastId');
