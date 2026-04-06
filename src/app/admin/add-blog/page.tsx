@@ -79,6 +79,11 @@ const AddBlog = () => {
     const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
         if (!e.target.files) return;
 
+        if (e.target.files[0].size >= 3 * 1024 * 1024) {
+            openToast({ message: "File must be less than 3MB", type: 'info' });
+            return;
+        }
+
         uploadImage(
             e.target.files[0],
             {
@@ -175,7 +180,7 @@ const AddBlog = () => {
                         </div>
                         {formErrors.image && <p className='text-sm text-red-700 text-start'>{formErrors.image}</p>}
                         {displayImage && (
-                            <div className="mt-3 rounded-xl overflow-hidden max-h-48">
+                            <div className="mt-3 rounded-xl overflow-hidden max-h-48 h-48 ">
                                 <img src={displayImage} alt="Cover preview" className="w-full h-full object-cover" />
                             </div>
                         )}

@@ -16,6 +16,7 @@ export async function POST(request: Request): Promise<NextResponse> {
         return {
           allowedContentTypes: ['image/jpeg', 'image/png', 'image/webp'],
           addRandomSuffix: true,
+          maximumSizeInBytes:3 * 1024 * 1024,
           // callbackUrl: 'https://example.com/api/avatar/upload',
           // optional, `callbackUrl` is automatically computed when hosted on Vercel
           tokenPayload: JSON.stringify({

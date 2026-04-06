@@ -54,6 +54,11 @@ const RegisterForm = () => {
     const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
         if (!e.target.files) return;
 
+        if (e.target.files[0].size >= 3 * 1024 * 1024) {
+            openToast({ message: "File must be less than 3MB", type: 'info' });
+            return;
+        }
+        
         uploadImage(
             e.target.files[0],
             {
@@ -169,7 +174,7 @@ const RegisterForm = () => {
                             {formErrors.password && <p className='mobile:text-sm text-xs text-red-700'>{formErrors.password}</p>}
                         </div>
 
-                        <button className="w-full mobile:text-lg button flex items-center" disabled={isSignupPending}>
+                        <button className="w-full mobile:text-lg button flex justify-center items-center" disabled={isSignupPending}>
                             {isSignupPending ? (
                                 <>
                                     <SmallComponentSpinner />

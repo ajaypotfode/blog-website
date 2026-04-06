@@ -4,6 +4,8 @@ import { getLoggedInUser } from "@/utils/jwtVerification"
 import { Types } from "mongoose"
 import { NextRequest, NextResponse } from "next/server"
 import "@/schema/UserSchema";
+import CommentModel from "@/schema/CommentSchema"
+import InteractionModel from "@/schema/InteractionSchema"
 
 export const GET = async (req: NextRequest) => {
     const lastId = req.nextUrl.searchParams.get('lastId');
@@ -114,12 +116,20 @@ export const DELETE = async (req: NextRequest) => {
             return NextResponse.json({ message: "unAuthorized User!", success: false }, { status: 401 })
         }
 
-        const deleteBlog = await BlogModel.findByIdAndDelete({ _id: blogId, author: logedUser.id }).populate('author', "userName")
+        const deleteBlog = await BlogModel.findOneAndDelete({ _id: blogId, author: logedUser.id }).populate('author', "userName")
+
         // const result = await deleteBlog?.populate('author', "userName")
 
         if (!deleteBlog) {
-            return NextResponse.json({ message: "Blog Not Found!", success: false }, { status: 200 })
+            return NextResponse.json({ message: "Blog Not Found!", success: false }, { status: 404 })
         }
+
+
+        await Promise.all([
+            CommentModel.deleteMany({ blogId: deleteBlog._id }),
+            InteractionModel.deleteMany({ blogId: deleteBlog._id }),
+
+        ])
 
         return NextResponse.json({ message: "blog Deleted SuccessFully!", success: true, result: deleteBlog }, { status: 200 })
 

@@ -122,7 +122,7 @@ const LoginForm = () => {
                             {formErrors.password && <p className='mobile:text-sm text-xs text-red-700'>{formErrors.password}</p>}
                         </div>
 
-                        <button className="w-full flex items-center mobile:text-lg button" disabled={isPending}>
+                        <button className="w-full flex items-center justify-center mobile:text-lg button" disabled={isPending}>
                             {isPending ? (
                                 <>
                                     <SmallComponentSpinner />

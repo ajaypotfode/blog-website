@@ -55,6 +55,7 @@ InteractionSchema.index(
 // )
 
 InteractionSchema.index({ blogId: 1, type: 1, userId: 1 });
+InteractionSchema.index({ blogId: 1 });
 InteractionSchema.index({ blogId: 1, type: 1, sessionId: 1 });
 
 const InteractionModel: Model<Interaction> = mongoose.models.interactions || mongoose.model<Interaction>("interactions", InteractionSchema);

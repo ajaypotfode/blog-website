@@ -30,6 +30,11 @@ CommentSchema.index(
     { blogId: 1 }
 )
 
+
+CommentSchema.index({ blogId: 1 });
+CommentSchema.index({ blogId: 1, userId: 1 });
+CommentSchema.index({ blogId: 1, userId: 1, comment: 1 });
+
 const CommentModel: Model<Comment> = mongoose.models.comments || mongoose.model<Comment>("comments", CommentSchema);
 
 export default CommentModel
