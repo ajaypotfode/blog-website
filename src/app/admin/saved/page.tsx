@@ -120,71 +120,109 @@ const SavedBlogs = () => {
                         rowComponent={({ index, style, savedBlogs }) => {
                             const blog = savedBlogs[index];
                             return (
-                                <div style={style} className='py-3!'>
-                                    <div className="   bg-white rounded-2xl border border-gray-300/50 hover:shadow-sm transition-shadow overflow-hidden"   >
-                                        <div className="flex flex-col sm:flex-row sm:items-start sm:gap-4 p-4 sm:p-6">
+                                <>
+                                    {!blog.blogId ?
+                                        (
 
-                                            {blog.blogId.image && (
-                                                <img
-                                                    src={blog.blogId.image}
-                                                    alt={blog.blogId.title}
-                                                    className="w-full h-36 rounded-xl object-cover mb-3 sm:w-20 sm:h-16 sm:rounded-lg sm:mb-0 sm:mt-0.5 "
-                                                />
-                                            )}
-                                            <div className="flex-1 min-w-0">
-                                                <div className="flex items-center gap-2 mb-1 flex-wrap">
-                                                    <span className="px-2 py-0.5 bg-gray-100 text-gray-700 text-xs font-medium rounded-full">
-                                                        {blog.blogId.category}
-                                                    </span>
-                                                    <span className="text-xs text-gray-800">
-                                                        {format(new Date(blog.blogId.createdAt), 'MMM d, yyyy')}
-                                                    </span>
-                                                </div>
+                                            <div style={style} className='py-3!'>
+                                                <div className="   bg-white rounded-2xl border border-gray-300/50 hover:shadow-sm transition-shadow overflow-hidden"   >
+                                                    <div className="flex flex-col sm:flex-row sm:items-start sm:gap-4 p-4 sm:p-6">
+                                                        <div className="flex-1 min-w-0">
+                                                            <div>
+                                                                <h3 className="font-semibold text-gray-900 hover:text-blue-600 transition-colors line-clamp-2 text-sm sm:text-base leading-snug">
+                                                                    This blog is no longer available
+                                                                </h3>
+                                                            </div>
 
-                                                <Link href={`/blog-details/${blog.blogId._id}`}>
-                                                    <h3 className="font-semibold text-gray-900 hover:text-blue-600 transition-colors line-clamp-2 text-sm sm:text-base leading-snug">
-                                                        {blog.blogId.title}
-                                                    </h3>
-                                                </Link>
-
-                                                <p className="text-xs sm:text-sm text-gray-800 line-clamp-2 mt-1 leading-relaxed">
-                                                    {blog.blogId.description}
-                                                </p>
-                                                <div className="flex items-center flex-wrap gap-x-3 gap-y-1 mt-2">
-                                                    <div className="flex items-center gap-1.5">
-                                                        <Avatar src={blog.blogId?.author.image ?? ""} fallback={blog.blogId.author.userName} className='h-8 w-8 text-xs' />
-                                                        {/* <span className="text-xs text-gray-800 truncate max-w-[120px]">{blog.blogId?.author?.userName}</span> */}
+                                                            <p className="text-xs sm:text-sm text-gray-800 line-clamp-2 mt-1 leading-relaxed">
+                                                                The author may have deleted it.
+                                                            </p>
+                                                        </div>
                                                     </div>
-                                                    <span className="flex items-center gap-1 text-xs text-gray-800">
-                                                        <Eye className="w-3.5 h-3.5 flex-shrink-0" /><span>{blog.blogId.viewCount}</span>
-                                                    </span>
-                                                    <span className="flex items-center gap-1 text-xs text-gray-800">
-                                                        <Heart className="w-3.5 h-3.5 flex-shrink-0" /><span>{blog.blogId.likeCount}</span>
-                                                    </span>
+                                                    <div className="border-t border-gray-300/40 px-4 py-2.5 flex flex-col gap-2 bg-gray-50/60 sm:flex-row sm:justify-between sm:items-center sm:px-6 sm:py-3 sm:bg-transparent">
+                                                        <button
+                                                            onClick={() => handleUnsaveBlog(blog._id)}
+                                                            disabled={(variables === blog._id && isUnsavePending)}
+                                                            className="flex items-center gap-1.5 rounded-full font-medium text-amber-600 
+                                              border border-amber-200 hover:bg-amber-50 transition-colors px-3 py-1.5 text-xs self-end
+                                              sm:px-4 sm:text-sm sm:self-auto" >
+                                                            {(variables === blog._id && isUnsavePending) ? <Loader2 className="w-3.5 h-3.5 animate-spin" />
+                                                                : <BookmarkX className="w-3 h-3" />
+                                                            }
+                                                            <span>Remove</span>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        ) :
+                                        (<div style={style} className='py-3!'>
+                                            <div className="   bg-white rounded-2xl border border-gray-300/50 hover:shadow-sm transition-shadow overflow-hidden"   >
+                                                <div className="flex flex-col sm:flex-row sm:items-start sm:gap-4 p-4 sm:p-6">
+
+                                                    {blog.blogId?.image && (
+                                                        <img
+                                                            src={blog.blogId.image}
+                                                            alt={blog.blogId.title}
+                                                            className="w-full h-36 rounded-xl object-cover mb-3 sm:w-20 sm:h-16 sm:rounded-lg sm:mb-0 sm:mt-0.5 "
+                                                        />
+                                                    )}
+                                                    <div className="flex-1 min-w-0">
+                                                        <div className="flex items-center gap-2 mb-1 flex-wrap">
+                                                            <span className="px-2 py-0.5 bg-gray-100 text-gray-700 text-xs font-medium rounded-full">
+                                                                {blog.blogId?.category}
+                                                            </span>
+                                                            <span className="text-xs text-gray-800">
+                                                                {format(new Date(blog.blogId?.createdAt), 'MMM d, yyyy')}
+                                                            </span>
+                                                        </div>
+
+                                                        <Link href={`/blog-details/${blog.blogId?._id}`}>
+                                                            <h3 className="font-semibold text-gray-900 hover:text-blue-600 transition-colors line-clamp-2 text-sm sm:text-base leading-snug">
+                                                                {blog.blogId?.title}
+                                                            </h3>
+                                                        </Link>
+
+                                                        <p className="text-xs sm:text-sm text-gray-800 line-clamp-2 mt-1 leading-relaxed">
+                                                            {blog.blogId?.description}
+                                                        </p>
+                                                        <div className="flex items-center flex-wrap gap-x-3 gap-y-1 mt-2">
+                                                            <div className="flex items-center gap-1.5">
+                                                                <Avatar src={blog.blogId?.author.image ?? ""} fallback={blog.blogId?.author.userName} className='h-8 w-8 text-xs' />
+                                                                {/* <span className="text-xs text-gray-800 truncate max-w-[120px]">{blog.blogId?.author?.userName}</span> */}
+                                                            </div>
+                                                            <span className="flex items-center gap-1 text-xs text-gray-800">
+                                                                <Eye className="w-3.5 h-3.5 flex-shrink-0" /><span>{blog.blogId?.viewCount}</span>
+                                                            </span>
+                                                            <span className="flex items-center gap-1 text-xs text-gray-800">
+                                                                <Heart className="w-3.5 h-3.5 flex-shrink-0" /><span>{blog.blogId?.likeCount}</span>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div className="border-t border-gray-300/40 px-4 py-2.5 flex flex-col gap-2 bg-gray-50/60 sm:flex-row sm:justify-between sm:items-center sm:px-6 sm:py-3 sm:bg-transparent">
+                                                    <Link
+                                                        href={`/blog-details/${blog.blogId?._id}`}
+                                                        className="text-sm font-medium text-blue-600 hover:text-blue-700 transition-colors sm:hidden"
+                                                    >
+                                                        Read story →
+                                                    </Link>
+                                                    <button
+                                                        onClick={() => handleUnsaveBlog(blog._id)}
+                                                        disabled={(variables === blog._id && isUnsavePending)}
+                                                        className="flex items-center gap-1.5 rounded-full font-medium text-amber-600 
+                                              border border-amber-200 hover:bg-amber-50 transition-colors px-3 py-1.5 text-xs self-end
+                                              sm:px-4 sm:text-sm sm:self-auto" >
+                                                        {(variables === blog._id && isUnsavePending) ? <Loader2 className="w-3.5 h-3.5 animate-spin" />
+                                                            : <BookmarkX className="w-3 h-3" />
+                                                        }
+                                                        <span>Unsave</span>
+                                                    </button>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div className="border-t border-gray-300/40 px-4 py-2.5 flex flex-col gap-2 bg-gray-50/60 sm:flex-row sm:justify-between sm:items-center sm:px-6 sm:py-3 sm:bg-transparent">
-                                            <Link
-                                                href={`/blog-details/${blog.blogId._id}`}
-                                                className="text-sm font-medium text-blue-600 hover:text-blue-700 transition-colors sm:hidden"
-                                            >
-                                                Read story →
-                                            </Link>
-                                            <button
-                                                onClick={() => handleUnsaveBlog(blog._id)}
-                                                disabled={(variables === blog._id && isUnsavePending)}
-                                                className="flex items-center gap-1.5 rounded-full font-medium text-amber-600 
-                                              border border-amber-200 hover:bg-amber-50 transition-colors px-3 py-1.5 text-xs self-end
-                                              sm:px-4 sm:text-sm sm:self-auto" >
-                                                {(variables === blog._id && isUnsavePending) ? <Loader2 className="w-3.5 h-3.5 animate-spin" />
-                                                    : <BookmarkX className="w-3 h-3" />
-                                                }
-                                                <span>Unsave</span>
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
+                                        )
+                                    }
+                                </>
                             )
                         }}
                     />

@@ -40,7 +40,7 @@ export interface BlogResult {
 export interface SavedBlogResult {
     _id: string,
     autherId: string,
-    blogId: BlogResult,
+    blogId: BlogResult|null,
     createdAt: string,
     updatedAt: string,
 }
