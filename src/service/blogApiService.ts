@@ -2,9 +2,10 @@
 import api from "@/axios/axios";
 import { CommentData, GetBlogsResponse, GetCommentedBlogResponse, GetCommentsResponse, GetLikedBlogResponse, GetSingleBlogResponse } from "@/types/BlogTypes";
 
-export const getBlogAPI = async (): Promise<GetBlogsResponse> => {
+export const getBlogAPI = async (search?: string): Promise<GetBlogsResponse> => {
+    const params = { search }
 
-    const response = await api.get<GetBlogsResponse>('/api/blog');
+    const response = await api.get<GetBlogsResponse>('/api/blog', { params });
     if (response.data.success) {
         return response.data;
     }
@@ -56,7 +57,7 @@ export const getTrendingBlogAPI = async (): Promise<GetBlogsResponse> => {
 }
 
 
-export const getBlogByIdAPI = async (blogId:string): Promise<GetSingleBlogResponse> => {
+export const getBlogByIdAPI = async (blogId: string): Promise<GetSingleBlogResponse> => {
     // const data = JSON.stringify(loginData)
 
     const response = await api.get<GetSingleBlogResponse>(`/api/blog/${blogId}`);

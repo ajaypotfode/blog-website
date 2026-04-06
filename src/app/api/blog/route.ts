@@ -1,24 +1,38 @@
 import BlogModel from "@/schema/BlogSchema"
 import { databaseConnection } from "@/utils/db"
-import { NextResponse } from "next/server"
+import { NextRequest, NextResponse } from "next/server"
 // Importing User model to ensure it's registered before using it in Blog API,
 // since Blog references User via the 'author' field and we want to populate it even without login.
 import "@/schema/UserSchema";
 
 
 // get All Blogs Api
-export const GET = async () => {
-    // const category = req.nextUrl.searchParams.get("category");
+export const GET = async (req: NextRequest) => {
+    const search = req.nextUrl.searchParams.get("search");
     const limit = 10;
 
     try {
         await databaseConnection()
 
-        const blogs = await BlogModel.find()
-            .sort({ createdAt: -1 })
-            .limit(limit)
-            .populate("author", "userName image")
+        let blogs = []
+        if (search) {
+            blogs = await BlogModel.find({
+                $or: [
+                    { title: { $regex: search, $options: 'i' } },
+                    { category: { $regex: search, $options: 'i' }, }
+                ]
+            })
+                .sort({ viewCount: -1 })
+                .limit(limit)
+                .populate("author", "userName image")
 
+        } else {
+            blogs = await BlogModel.find()
+                .sort({ createdAt: -1 })
+                .limit(limit)
+                .populate("author", "userName image")
+
+        }
         // if (category) {
         //     blogs = blogs.filter(blog => blog.category === category)
         // }

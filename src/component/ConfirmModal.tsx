@@ -30,13 +30,13 @@ const ConfirmModal = () => {
                             <div className="flex gap-3">
                                 <button
                                     onClick={() => closeModal(false)}
-                                    className="flex-1 px-4 py-2.5 rounded-xl text-sm font-medium border border-gray-300 text-gray-900 hover:bg-gray-200 transition-colors disabled:opacity-50"
+                                    className="flex-1 button"
                                 >
                                     Cancel
                                 </button>
                                 <button
                                     onClick={() => closeModal(true)}
-                                    className="flex-1 px-4 py-2.5 rounded-xl text-sm font-medium bg-rose-500 text-white hover:bg-rose-600 transition-colors disabled:opacity-50 flex items-center justify-center gap-2"
+                                    className="flex-1 button bg-rose-500! text-white! hover:bg-rose-600! button"
                                 >
                                     Confirm
                                 </button>

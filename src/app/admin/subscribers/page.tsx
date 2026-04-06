@@ -103,7 +103,7 @@ const Subscribers = () => {
                         Write great stories to grow your audience.
                     </p>
                     <Link href="/admin/add-blog">
-                        <button className="rounded-full">Write a Story</button>
+                        <button className="underline">Write a Story</button>
                     </Link>
                 </div>
             ) : (

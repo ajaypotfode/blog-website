@@ -33,6 +33,7 @@ export interface BlogResult {
     createdAt: string;
     subscribed: boolean;
     liked: boolean;
+    saved:boolean;
 
 }
 

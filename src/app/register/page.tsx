@@ -95,7 +95,7 @@ const RegisterForm = () => {
                     <form className="space-y-6" onSubmit={onSubmit}>
 
                         <div className="space-y-2 relative ">
-                            <label className="block mb-1 text-sm font-medium text-gray-700" htmlFor='image'>User Name</label>
+                            <label className="block mb-1 text-sm font-medium text-gray-700" htmlFor='image'>Upload Profile Pic</label>
                             <input
                                 type="file"
                                 name='image'
@@ -169,7 +169,7 @@ const RegisterForm = () => {
                             {formErrors.password && <p className='mobile:text-sm text-xs text-red-700'>{formErrors.password}</p>}
                         </div>
 
-                        <button className="w-full mobile:text-lg text-sm bg-black text-white py-2 rounded-md hover:bg-gray-800 transition" disabled={isSignupPending}>
+                        <button className="w-full mobile:text-lg button flex items-center" disabled={isSignupPending}>
                             {isSignupPending ? (
                                 <>
                                     <SmallComponentSpinner />

@@ -6,7 +6,7 @@ import BlogCard from '@/component/BlogCard'
 import { SmallComponentSpinner } from '@/component/Loaders'
 import { useGetRecomendedBlogsMutation, useGetTopStoriesMutation, useGetTrendingBlogsMutation } from '@/mutation/adminBlogMutation'
 import { useAtom, useSetAtom } from 'jotai'
-import { Clock, Loader2, Sparkles, TrendingUp } from 'lucide-react'
+import { BookOpen, Clock, Loader2, Sparkles, TrendingUp } from 'lucide-react'
 import Link from 'next/link'
 import React, { useEffect } from 'react'
 
@@ -115,25 +115,32 @@ const MyFeed = () => {
                         <Clock className="w-5 h-5 text-purple-500" />
                         <h2 className="text-xl font-bold">Your Top Stories</h2>
                     </div>
-
                     {
-                        isBlogsPending ? (
-                            <div className="py-12 flex justify-center"><SmallComponentSpinner /></div>
-                        ) : (
-                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                                {
-                                    adminBlogs.map((blog, index) => (
-                                        <BlogCard key={index} blog={blog} />
-                                    ))
-                                }
-                            </div>
-                        )
+                        isBlogsPending ? <div className="py-12 flex justify-center"><SmallComponentSpinner /></div>
+                            : adminBlogs.length === 0 ? (
+                                <div className="text-center py-20">
+                                    <BookOpen className="w-12 h-12 text-gray-800 mx-auto mb-4" />
+                                    <h3 className="text-lg font-semibold text-primary mb-2">No stories yet</h3>
+                                    <p className="text-gray-800 mb-6">You have not published any stories yet. Start writing!</p>
+                                    <Link href="/admin/add-blog">
+                                        <button className="rounded-full underline">Write Your First Story</button>
+                                    </Link>
+                                </div>
+                            ) : (
+
+                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                                    {
+                                        adminBlogs.map((blog, index) => (
+                                            <BlogCard key={index} blog={blog} />
+                                        ))
+                                    }
+                                </div>
+                            )
                     }
                 </div>
 
             </div>
 
-            {/* Sidebar */}
             <div className="lg:col-span-4 space-y-10">
 
                 <div className="sticky top-24">

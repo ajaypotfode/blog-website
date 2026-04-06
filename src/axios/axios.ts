@@ -11,15 +11,19 @@ const authApiEndpoints = [
 
 // const isLogedIn = false;
 
-// api.interceptors.request.use(
-//     (config) => {
-//         if (!navigator.onLine) {
-//             return Promise.reject(new Error('Network Error'));
-//         }
-//         return config
-//     },
-//     (err) => Promise.reject(err)
-// )
+api.interceptors.request.use(
+    (config) => {
+        if (!navigator.onLine) {
+            return Promise.reject(new Error('Network Error'));
+        }
+        return config
+    },
+    (error) => Promise.reject({
+        message: (error.response?.data as { message: string })?.message || error.message,
+        status,
+        data: error.response?.data,
+    })
+)
 
 // api.interceptors.request.use(
 //     (config) => config,

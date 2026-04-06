@@ -19,7 +19,8 @@ const SavedBlogSchema: Schema<SavedBlog> = new Schema({
     }
 }, { timestamps: true })
 
+SavedBlogSchema.index({ blogId: 1, autherId: 1 })
 
-const SavedBlogModel:Model<SavedBlog> = mongoose.models.savedBlogs || mongoose.model("savedBlogs", SavedBlogSchema)
+const SavedBlogModel: Model<SavedBlog> = mongoose.models.savedBlogs || mongoose.model("savedBlogs", SavedBlogSchema)
 
 export default SavedBlogModel

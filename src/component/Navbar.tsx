@@ -14,7 +14,7 @@ const Navbar = () => {
     const [user] = useAtom(userAtom)
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
     const dropdownRef = useRef<HTMLDivElement>(null);
-    const { logout,isPending } = useAuthData();
+    const { logout, isPending } = useAuthData();
     const [isMounted, setIsMounted] = useState(false);
     // const 
 
@@ -120,7 +120,7 @@ const Navbar = () => {
                                         >
                                             <LogOut className="w-4 h-4" />
                                             <span>Sign Out</span>
-                                            {isPending&&<SmallComponentSpinner/>}
+                                            {isPending && <SmallComponentSpinner />}
                                         </button>
                                     </div>
                                 )}
@@ -132,7 +132,7 @@ const Navbar = () => {
                                 Sign In
                             </Link>
                             <Link href="/register" className="hidden sm:inline-block">
-                                <button className="rounded-full px-6">Get Started</button>
+                                <button className="button">Get Started</button>
                             </Link>
                         </>
                     )}

@@ -7,7 +7,7 @@ import Link from "next/link"
 import { useAtom, useSetAtom } from "jotai"
 import { blogAtom, commentDataAtom, commentsAtom, totalCommentsAtom } from "@/atom/blogsAtom"
 import { useCommentBlogMutation, useGetBlogByIdMutation, useGetCommentMutation, useLikeBlogMutation } from "@/mutation/blogMutation"
-import { Bookmark, Heart, Loader2, MessageCircle, Send, UserCheck, UserPlus } from "lucide-react"
+import { Bookmark, Heart, Loader2, MessageCircle, Send, Share2, UserCheck, UserPlus } from "lucide-react"
 import { format } from "date-fns"
 import { isLoggedinAtom, userAtom } from "@/atom/userAtom"
 import { useSubscribeMutation } from "@/mutation/subsciber"
@@ -175,7 +175,7 @@ const Blog = ({ params }: { params: Promise<{ blogId: string }> }) => {
             blogData?.author._id,
             {
                 onSuccess: () => {
-                    setBlogData({ ...blogData, subscribed: true })
+                    setBlogData(prev => prev ? { ...prev, subscribed: true } : prev);
                 },
                 onError: (err: Error) => {
                     openToast({ type: "error", message: err.message || "Failed To Subscribe" })
@@ -189,14 +189,14 @@ const Blog = ({ params }: { params: Promise<{ blogId: string }> }) => {
     const handleBlogSave = (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
         if (!isLoggedIn) return openToast({ type: "info", message: "Sign in first" });
-        if (isSavePending) return;
+        if (isSavePending || blogData?.saved) return;
 
         saveBlog(
             blogId,
             {
                 onSuccess: () => {
+                    setBlogData(prev => prev ? { ...prev, saved: true } : prev);
                     openToast({ type: "success", message: "Blog Saved Successfully!!" })
-
                 },
                 onError: (err: Error) => {
                     openToast({ type: "error", message: err.message || "Failed To Save Blog" })
@@ -205,6 +205,11 @@ const Blog = ({ params }: { params: Promise<{ blogId: string }> }) => {
 
         )
 
+    }
+
+    const handleShare = () => {
+        navigator.clipboard?.writeText(window.location.href);
+        openToast({ message: "Link copied!", type: 'success' });
     }
 
 
@@ -298,17 +303,15 @@ const Blog = ({ params }: { params: Promise<{ blogId: string }> }) => {
                                             : <button
                                                 disabled={isSavePending}
                                                 onClick={handleBlogSave}
-                                                className="text-gray-800 hover:text-gray-900 transition-colors cursor-pointer ">
-                                                <Bookmark className="w-5 h-5" />
+                                                className={`transition-colors ${blogData.saved ? 'text-amber-500' : ' hover:text-amber-500'}`}
+                                            >
+                                                <Bookmark className={`w-5 h-5 transition-all ${blogData.saved ? 'fill-amber-500' : ''}`} />
                                             </button>)
                                     }
-                                    {/* <button onClick={() => {
-                                        navigator.clipboard?.writeText(window.location.href);
-                                        //  toast({ title: "Link copied!" });
-                                    }}
+                                    <button onClick={handleShare}
                                         className="text-gray-800 hover:text-gray-900 transition-colors">
                                         <Share2 className="w-5 h-5" />
-                                    </button> */}
+                                    </button>
                                 </div>
                             </div>
 
@@ -367,7 +370,7 @@ const Blog = ({ params }: { params: Promise<{ blogId: string }> }) => {
                                                 <button
                                                     onClick={submitComment}
                                                     disabled={!commentData.comment.trim() || isCommentPending}
-                                                    className="flex items-center space-x-2 px-5 py-2 bg-black text-white rounded-full text-sm font-medium hover:opacity-90 disabled:opacity-40 disabled:cursor-not-allowed transition-all"
+                                                    className="flex items-center gap-2 button"
                                                 >
                                                     {isCommentPending ? <Loader2 className="w-4 h-4 animate-spin" /> : <Send className="w-4 h-4" />}
                                                     <span>Post</span>
@@ -379,8 +382,7 @@ const Blog = ({ params }: { params: Promise<{ blogId: string }> }) => {
                                     <div className="mb-10 p-5 bg-blue-50 border border-blue-100 rounded-2xl flex items-center justify-between">
                                         <p className="text-sm text-blue-700 font-medium">Sign in to join the conversation</p>
                                         <Link href="/login">
-                                            <button>Sign in</button>
-                                            {/* <Button size="sm" className="rounded-full">Sign In</Button> */}
+                                            <button className="button">Sign in</button>
                                         </Link>
                                     </div>
                                 )}
@@ -465,7 +467,7 @@ const Blog = ({ params }: { params: Promise<{ blogId: string }> }) => {
                             <h2 className="text-2xl font-bold text-primary mb-2">Blog not found</h2>
                             <p className="text-gray-800 mb-6">The story you are looking for does not exist or has been removed.</p>
                             <Link href="/">
-                                {/* <Button>Return Home</Button>*/}
+                                <button className="underline">Return Home</button>
                             </Link>
                         </div>)
                 )

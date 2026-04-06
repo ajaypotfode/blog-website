@@ -9,18 +9,16 @@ import { NextRequest, NextResponse } from "next/server";
 import "@/schema/UserSchema";
 import SubscriberModel from "@/schema/SubscriberSchema";
 import { getSessionId } from "@/helpers/getSessionId";
+import SavedBlogModel from "@/schema/SavedSchema";
 
 
 // Get Blog Details Api
 export const GET = async (req: NextRequest, { params }: { params: Promise<{ blogId: string }> }) => {
     try {
         const { blogId } = await params
-        const sessionId =await getSessionId();
+        const sessionId = await getSessionId();
         const logedUser = await getLoggedInUser();
         await databaseConnection()
-
-
-        console.log("sessionId   :", sessionId);
 
         const blog = await BlogModel.findById(blogId).populate('author', "userName image").lean()
 
@@ -28,8 +26,11 @@ export const GET = async (req: NextRequest, { params }: { params: Promise<{ blog
             return NextResponse.json({ message: "Blog Not Available!!", success: false }, { status: 404 })
         }
 
-        const isSubscribed = await SubscriberModel.exists({ autherId: blog.author._id, userId: logedUser?.id });
-        const isLiked = await InteractionModel.exists({ blogId: blog._id, userId: logedUser?.id, type: 'LIKE' })
+        const [isSubscribed, isLiked, isSaved] = await Promise.all([
+            SubscriberModel.exists({ autherId: blog.author._id, userId: logedUser?.id }),
+            InteractionModel.exists({ blogId: blog._id, userId: logedUser?.id, type: 'LIKE' }),
+            SavedBlogModel.exists({ blogId: blog._id, autherId: logedUser?.id })
+        ])
 
         // const comments = await CommentModel.find({ blogId: blog._id })
         //     .sort({ createdAt: -1 })
@@ -74,7 +75,8 @@ export const GET = async (req: NextRequest, { params }: { params: Promise<{ blog
         const result = {
             ...blog,
             subscribed: !!isSubscribed,
-            liked: !!isLiked
+            liked: !!isLiked,
+            saved: !!isSaved
         }
 
 

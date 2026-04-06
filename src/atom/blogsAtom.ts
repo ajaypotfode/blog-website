@@ -4,6 +4,7 @@ import { atom } from 'jotai';
 
 
 export const allBlogsAtom = atom<BlogResult[]>([]);
+export const searchInputAtom = atom<string>('');
 export const categoriesAtom = atom(["Technology", "Design", "Culture", "Programming", "Business", "Music", "Sports", "Games"]);
 export const blogAtom = atom<BlogResult | null>(null);
 export const commentsAtom = atom<Comment[]>([]);

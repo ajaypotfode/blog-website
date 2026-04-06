@@ -6,7 +6,7 @@ import { SmallComponentSpinner } from "@/component/Loaders";
 import blogFormValidate from "@/formValidation/blogFormvalidate"
 import { useAddBlogMutation } from "@/mutation/adminBlogMutation";
 import { useAtom, useSetAtom } from "jotai";
-import { ImageIcon, Link } from "lucide-react";
+import { ImageIcon } from "lucide-react";
 import React, { useRef, useState } from "react";
 import Editor, {
     BtnBold,
@@ -25,6 +25,7 @@ import Editor, {
     Toolbar
 } from 'react-simple-wysiwyg';
 import { useUploadImageMutation } from "@/mutation/uploadImageMutation";
+import Link from "next/link";
 
 const AddBlog = () => {
     const openToast = useSetAtom(openToastAtom)
@@ -70,6 +71,9 @@ const AddBlog = () => {
             })
     }
 
+    const handleCancel = () => {
+        setBlogdata({ title: "", category: "", image: "", description: "", content: "" });
+    }
 
 
     const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -210,9 +214,9 @@ const AddBlog = () => {
 
                     <div className="flex items-center justify-between pt-6 border-t border-gray-300">
                         <Link href="/">
-                            <button type="button" className="rounded-full">Cancel</button>
+                            <button type="button" onClick={handleCancel} className="button  ">Cancel</button>
                         </Link>
-                        <button type="submit" disabled={isAddblogPending} className="rounded-full px-8">
+                        <button type="submit" disabled={isAddblogPending} className="button flex items-center gap-2">
                             {isAddblogPending ? <><SmallComponentSpinner />Publishing...</> : 'Publish Story'}
                         </button>
                         {/* <button onClick={uploadImage} className="text-black p-4 border border-black">Upload File</button> */}

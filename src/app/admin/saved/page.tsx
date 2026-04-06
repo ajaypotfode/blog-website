@@ -81,6 +81,7 @@ const SavedBlogs = () => {
         fetchSavedBlogs();
     }, [])
 
+
     return (
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-16">
             <div className="mb-8 md:mb-10">
@@ -105,7 +106,7 @@ const SavedBlogs = () => {
                         Bookmark stories you want to read later by clicking the bookmark icon on any post.
                     </p>
                     <Link href="/">
-                        <button className="rounded-full">Browse Stories</button>
+                        <button className="underline">Browse Stories</button>
                     </Link>
                 </div>
             ) : (

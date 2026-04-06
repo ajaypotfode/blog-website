@@ -4,8 +4,8 @@ import { useMutation } from "@tanstack/react-query"
 
 export const useGetBlogsMutation = () => {
     return useMutation({
-        mutationFn: () => {
-            return getBlogAPI()
+        mutationFn: (search?:string) => {
+            return getBlogAPI(search)
         }
     })
 }

@@ -89,7 +89,7 @@ const BlogList = () => {
                         </p>
                     </div>
                     <Link href="/admin/add-blog">
-                        <button className="rounded-full flex items-center space-x-2">
+                        <button className="button flex items-center space-x-2">
                             <PenSquare className="w-4 h-4" />
                             <span>Write New</span>
                         </button>
@@ -106,7 +106,7 @@ const BlogList = () => {
                         <h3 className="text-lg font-semibold text-primary mb-2">No stories yet</h3>
                         <p className="text-gray-800 mb-6">You have not published any stories yet. Start writing!</p>
                         <Link href="/admin/add-blog">
-                            <button className="rounded-full">Write Your First Story</button>
+                            <button className="rounded-full underline">Write Your First Story</button>
                         </Link>
                     </div>
                 ) : (
