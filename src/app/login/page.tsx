@@ -53,8 +53,10 @@ const LoginForm = () => {
                 setLoginData({ email: '', password: '' })
                 window.location.href = '/'
             }
-        } catch (err: any) {
-            openToast({ type: "error", message: err?.message || "Failed To Login" })
+        } catch (err) {
+            console.error("error:",err);
+            
+            openToast({ type: "error", message: "Failed To Login" })
         }
         // console.log("response is :", response);
     }
@@ -70,10 +72,11 @@ const LoginForm = () => {
                 { prompt: "select_account" }
             )
 
-        } catch (err: any) {
+        } catch (err) {
+            console.error("error:",err);
             openToast({
                 type: "error",
-                message: err.message || "Failed To Login"
+               message: "Failed To Login"
             });
             setIsGoogleLoginPending(false);
         }
