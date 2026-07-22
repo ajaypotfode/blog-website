@@ -1,0 +1,36 @@
+import { /*loginProviderAPI, loginUserAPI, */logoutUserAPI, signupUserAPI } from "@/service/authApiService"
+import {  UserData } from "@/types/AuthTypes"
+import { useMutation } from "@tanstack/react-query"
+
+// export const useLoginUserMutation = () => {
+//     return useMutation({
+//         mutationFn: async (loginData: LoginData) => {
+//             return loginUserAPI(loginData)
+//         }
+//     })
+// }
+
+// export const useLoginProvider = () => {
+//     return useMutation({
+//         mutationFn: async (provider: string) => {
+//             return loginProviderAPI(provider)
+//         }
+//     })
+// }
+
+
+export const useRegisterUserMutation = () => {
+    return useMutation({
+        mutationFn: async (signupData: UserData) => {
+            return signupUserAPI(signupData)
+        }
+    })
+}
+
+export const useLogoutUserMutation = () => {
+    return useMutation({
+        mutationFn: async () => {
+            return logoutUserAPI()
+        }
+    })
+}
