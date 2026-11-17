@@ -32,16 +32,18 @@ export default async function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <div className="react-toast mobile:text-lg text-md">
-          <ToastContainer />
-        </div>
-        <div className="min-h-screen bg-gray-50">
-          <ProviderWrapper>
-              {children}
-  
-          </ProviderWrapper>
-          <ConfirmModal />
-        </div>
+        <ProviderWrapper>
+          <div className="react-toast mobile:text-lg text-md">
+            <ToastContainer />
+          </div>
+          <div className="min-h-screen bg-gray-50">
+
+            {children}
+
+            <ConfirmModal />
+          </div>
+
+        </ProviderWrapper>
       </body>
     </html>
   );

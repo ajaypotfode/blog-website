@@ -26,9 +26,9 @@ const CommentSchema: Schema<Comment> = new Schema({
     }
 }, { timestamps: true })
 
-CommentSchema.index(
-    { blogId: 1 }
-)
+// CommentSchema.index(
+//     { blogId: 1 }
+// )
 
 
 CommentSchema.index({ blogId: 1 });
