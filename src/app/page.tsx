@@ -50,7 +50,7 @@ export default function Home() {
   }
 
   return (<>
-    <section className="relative overflow-hidden bg-white border-b border-gray-300/50">
+    <section className="relative overflow-hidden bg-surface border-b border-border/50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-32 relative">
         <div className="grid md:grid-cols-2 gap-12 items-center text-start">
           <div className="max-w-3xl">
@@ -58,7 +58,7 @@ export default function Home() {
               Discover Stories, <br />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-500">Ideas</span>, and Knowledge.
             </h1>
-            <p className="text-lg md:text-xl text-gray-800 mb-8 leading-relaxed max-w-lg ">
+            <p className="text-lg md:text-xl text-disabled mb-8 leading-relaxed max-w-lg ">
               Explore a world of thought-provoking articles from writers on topics ranging from technology to life lessons.
             </p>
             {/* <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
@@ -67,7 +67,7 @@ export default function Home() {
                 }}>
                   Start Reading
                 </button>
-                <button  className="rounded-full text-base px-8 h-14 bg-white/50 backdrop-blur-sm">
+                <button  className="rounded-full text-base px-8 h-14 bg-surface/50 backdrop-blur-sm">
                   Become a Writer
                 </button>
               </div> */}
@@ -93,24 +93,24 @@ export default function Home() {
       </div>
     </section>
     <section id="explore-section" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 md:py-16">
-      <div className="sticky top-16 z-40 bg-gray-50/95 backdrop-blur-md -mx-4 px-4 sm:mx-0 sm:px-0 pt-4 pb-3 mb-8 space-y-3">
+      <div className="sticky top-16 z-40 bg-background/95 backdrop-blur-md -mx-4 px-4 sm:mx-0 sm:px-0 pt-4 pb-3 mb-8 space-y-3">
 
         <form onSubmit={(e) => { e.preventDefault(); fetchBlogs(search); }} className="flex items-center gap-2">
           <div className="relative flex-1">
-            <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground pointer-events-none" />
+            <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-secondary-foreground pointer-events-none" />
             <input
               // ref={searchInputRef}
               type="text"
               value={search}
               onChange={e => setSearch(e.target.value)}
               placeholder="Search stories, topics, or authors..."
-              className="w-full pl-10 pr-9 py-2.5 text-sm bg-white border border-border hover:border-blue-300 focus:border-blue-400 focus:ring-2 focus:ring-blue-100 rounded-full outline-none transition-all placeholder:text-muted-foreground shadow-sm"
+              className="w-full pl-10 pr-9 py-2.5 text-sm bg-surface border border-border hover:border-blue-300 focus:border-blue-400 focus:ring-2 focus:ring-blue-100 rounded-full outline-none transition-all placeholder:text-muted-foreground shadow-sm"
             />
             {search && (
               <button
                 type="button"
                 onClick={() => setSearch('')}
-                className="absolute right-3.5 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
+                className="absolute right-3.5 top-1/2 -translate-y-1/2 text-secondary-foreground hover:text-foreground transition-colors"
               >
                 <X className="w-3.5 h-3.5" />
               </button>
@@ -119,7 +119,7 @@ export default function Home() {
           <button
             type="submit"
             disabled={isPending || search.trim() === ''}
-            className="flex-shrink-0 flex items-center gap-1.5 px-4 py-2.5 bg-black text-white text-sm font-semibold rounded-full hover:opacity-90 transition-opacity shadow-sm"
+            className="flex-shrink-0 flex items-center gap-1.5 px-4 py-2.5 bg-primary text-primary-foreground text-sm font-semibold rounded-full hover:opacity-90 transition-opacity shadow-sm"
           >
             <Search className="w-3.5 h-3.5" />
             <span className="hidden sm:inline">Search</span>
@@ -132,8 +132,8 @@ export default function Home() {
             <button
               onClick={() => setCategory('all')}
               className={`whitespace-nowrap px-4 py-2 rounded-full text-sm font-medium transition-all ${category === 'all'
-                ? "bg-black text-white shadow-md"
-                : "bg-white border border-border text-muted-foreground hover:bg-gray-100"
+                ? "bg-primary text-primary-foreground shadow-md"
+                : "bg-surface border border-border text-muted-foreground hover:bg-surface-secondary"
                 }`}
             >
               For You
@@ -143,8 +143,8 @@ export default function Home() {
                 key={cat}
                 onClick={() => setCategory(cat)}
                 className={`whitespace-nowrap px-4 py-2 rounded-full text-sm font-medium transition-all ${category === cat
-                  ? "bg-black text-white shadow-md"
-                  : "bg-white border border-border  hover:bg-gray-100"
+                  ? "bg-primary text-primary-foreground shadow-md"
+                  : "bg-surface border border-border  hover:bg-surface-secondary"
                   }`}
               >
                 {cat}
@@ -182,13 +182,13 @@ export default function Home() {
             </p>
           </div>
         ) : error ? (
-          <div className="text-center py-20 bg-white rounded-2xl border border-red-100">
+          <div className="text-center py-20 bg-surface rounded-2xl border border-red-100">
             <p className="text-destructive mb-2">Failed to load stories.</p>
             <button className="button" onClick={() => window.location.reload()}>Try Again</button>
           </div>
         ) : filteredBlogs.length === 0 ? (
-          <div className="text-center py-20 bg-white rounded-2xl border border-border/50 shadow-sm">
-            <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
+          <div className="text-center py-20 bg-surface rounded-2xl border border-border/50 shadow-sm">
+            <div className="w-16 h-16 bg-surface-secondary rounded-full flex items-center justify-center mx-auto mb-4">
               <BookOpen className="w-6 h-6 text-muted-foreground" />
             </div>
             <h3 className="text-xl font-serif font-bold mb-2">No stories found</h3>

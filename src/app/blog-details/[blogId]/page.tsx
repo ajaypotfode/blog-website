@@ -221,19 +221,19 @@ const Blog = ({ params }: { params: Promise<{ blogId: string }> }) => {
                 </div> :
                 (
                     (blogData && !isError) ?
-                        <article className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-10 md:py-16 text-black ">
+                        <article className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-10 md:py-16 text-primary ">
 
-                            <Link href="/" className="inline-flex items-center text-sm font-medium text-gray-800 hover:text-gray-900 mb-8 group transition-colors">
+                            <Link href="/" className="inline-flex items-center text-sm font-medium text-disabled hover:text-primary mb-8 group transition-colors">
                                 {/* <ArrowLeft className="w-4 h-4 mr-2 group-hover:-translate-x-1 transition-transform" /> */}
                                 Back to feed
                             </Link>
 
                             <header className="mb-10">
                                 <div className="flex items-center space-x-4 mb-6">
-                                    <span className="px-3 py-1 bg-gray-100 text-gray-800 text-xs font-semibold rounded-full uppercase tracking-wider">
+                                    <span className="px-3 py-1 bg-surface-secondary text-disabled text-xs font-semibold rounded-full uppercase tracking-wider">
                                         {blogData.category}
                                     </span>
-                                    <span className="text-gray-800 text-sm">
+                                    <span className="text-disabled text-sm">
                                         {format(new Date(blogData.createdAt), 'MMMM d, yyyy')}
                                     </span>
                                 </div>
@@ -242,16 +242,16 @@ const Blog = ({ params }: { params: Promise<{ blogId: string }> }) => {
                                     {blogData.title}
                                 </h1>
 
-                                <p className="text-xl text-gray-800 leading-relaxed mb-8 font-serif italic">
+                                <p className="text-xl text-disabled leading-relaxed mb-8 font-serif italic">
                                     {blogData.description}
                                 </p>
 
-                                <div className="flex items-center justify-between border-y border-gray-300/60 py-4">
+                                <div className="flex items-center justify-between border-y border-border/60 py-4">
                                     <div className="flex items-center space-x-4">
                                         <Avatar src={blogData.author.image} fallback={blogData.author.userName} className="h-12 w-12 text-base" />
                                         <div>
-                                            <p className="font-bold text-gray-900">{blogData.author.userName}</p>
-                                            <p className="text-sm text-gray-800">Author • {blogData.viewCount} reads</p>
+                                            <p className="font-bold text-primary">{blogData.author.userName}</p>
+                                            <p className="text-sm text-disabled">Author • {blogData.viewCount} reads</p>
                                         </div>
                                     </div>
                                     {
@@ -262,8 +262,8 @@ const Blog = ({ params }: { params: Promise<{ blogId: string }> }) => {
                                                 onClick={addSubscriber}
                                                 className={`flex items-center space-x-2 px-5 py-2 rounded-full text-sm font-medium border transition-all
                                                  ${blogData.subscribed
-                                                        ? 'bg-black text-white border-black hover:bg-primary/90 cursor-not-allowed '
-                                                        : 'bg-white text-gray-900 border-gray-300 hover:border-black hover:text-primary cursor-pointer '
+                                                        ? 'bg-primary text-primary-foreground border-border hover:bg-primary/90 cursor-not-allowed '
+                                                        : 'bg-surface text-primary border-border hover:border-black hover:text-primary cursor-pointer '
                                                     }`}
                                             >
                                                 {blogData.subscribed
@@ -276,12 +276,12 @@ const Blog = ({ params }: { params: Promise<{ blogId: string }> }) => {
                                 </div>
                             </header>
 
-                            <div className="flex items-center justify-between mb-10 py-2 sticky top-20 bg-gray-50/95 backdrop-blur z-30 -mx-4 px-4 sm:mx-0 sm:px-0">
+                            <div className="flex items-center justify-between mb-10 py-2 sticky top-20 bg-background/95 backdrop-blur z-30 -mx-4 px-4 sm:mx-0 sm:px-0">
                                 <div className="flex items-center space-x-6">
                                     <button
                                         onClick={addLike}
                                         disabled={isLikePending}
-                                        className={`flex items-center space-x-2 transition-colors group cursor-pointer ${blogData.liked ? 'text-rose-500' : 'text-gray-800 hover:text-rose-500'}`}
+                                        className={`flex items-center space-x-2 transition-colors group cursor-pointer ${blogData.liked ? 'text-rose-500' : 'text-disabled hover:text-rose-500'}`}
                                     >
                                         <Heart className={`w-5 h-5 transition-all duration-200 ${blogData.liked ? 'fill-rose-500 scale-110' : 'group-hover:scale-110'}`} />
                                         <span className="text-sm font-medium">
@@ -289,7 +289,7 @@ const Blog = ({ params }: { params: Promise<{ blogId: string }> }) => {
 
                                         </span>
                                     </button>
-                                    <a href="#comments" className="flex items-center space-x-2 text-gray-800 hover:text-blue-500 transition-colors group">
+                                    <a href="#comments" className="flex items-center space-x-2 text-disabled hover:text-blue-500 transition-colors group">
                                         <MessageCircle className="w-5 h-5 group-hover:scale-110 transition-transform" />
                                         <span className="text-sm font-medium">
                                             {totalComments}
@@ -303,13 +303,13 @@ const Blog = ({ params }: { params: Promise<{ blogId: string }> }) => {
                                             : <button
                                                 disabled={isSavePending}
                                                 onClick={handleBlogSave}
-                                                className={`transition-colors ${blogData.saved ? 'text-amber-500' : ' hover:text-amber-500'}`}
+                                                className={`transition-colors ${blogData.saved ? 'text-amber-500' : ' hover:text-amber-500'} cursor-pointer `}
                                             >
                                                 <Bookmark className={`w-5 h-5 transition-all ${blogData.saved ? 'fill-amber-500' : ''}`} />
                                             </button>)
                                     }
                                     <button onClick={handleShare}
-                                        className="text-gray-800 hover:text-gray-900 transition-colors">
+                                        className="text-disabled hover:text-primary transition-colors cursor-pointer">
                                         <Share2 className="w-5 h-5" />
                                     </button>
                                 </div>
@@ -333,21 +333,21 @@ const Blog = ({ params }: { params: Promise<{ blogId: string }> }) => {
 
                             {/* Content */}
                             <div
-                                className=" prose prose-lg md:prose-xl max-w-none prose-headings:font-serif prose-headings:text-primary prose-p:text-gray-700 prose-p:leading-loose prose-a:text-blue-600 hover:prose-a:text-blue-500"
+                                className=" prose prose-lg md:prose-xl max-w-none prose-headings:font-serif prose-headings:text-primary prose-p:text-secondary-foreground prose-p:leading-loose prose-a:text-blue-600 hover:prose-a:text-blue-500"
                                 dangerouslySetInnerHTML={{ __html: blogData.content }}
                             />
 
                             {/* Tags */}
-                            {/* <div className="mt-16 pt-8 border-t border-gray-300 flex flex-wrap gap-2">
+                            {/* <div className="mt-16 pt-8 border-t border-border flex flex-wrap gap-2">
                     {[blogData.category, 'Reading', 'Writing'].map(tag => (
-                        <span key={tag} className="px-3 py-1 bg-gray-100 text-gray-800 rounded-full text-sm hover:bg-gray-200 cursor-pointer transition-colors">
+                        <span key={tag} className="px-3 py-1 bg-surface-secondary text-disabled rounded-full text-sm hover:bg-gray-200 cursor-pointer transition-colors">
                             {tag}
                         </span>
                     ))}
                 </div> */}
 
                             {/* Comments Section */}
-                            <section id="comments" className="mt-16 pt-10 border-t border-gray-300">
+                            <section id="comments" className="mt-16 pt-10 border-t border-border">
                                 <h2 className="text-2xl font-bold text-primary mb-8 flex items-center space-x-2">
                                     <MessageCircle className="w-6 h-6" />
                                     <span>Comments
@@ -365,7 +365,7 @@ const Blog = ({ params }: { params: Promise<{ blogId: string }> }) => {
                                                 onChange={e => setCommentData({ comment: e.target.value, category: blogData.category })}
                                                 placeholder="Share your thoughts..."
                                                 rows={3}
-                                                className="w-full px-4 py-3 text-sm border border-gray-300 rounded-xl resize-none focus:outline-none focus:ring-2 focus:ring-gray-300/30 bg-white transition-all"
+                                                className="w-full px-4 py-3 text-sm border border-border rounded-xl resize-none focus:outline-none focus:ring-2 focus:ring-gray-300/30 bg-surface transition-all"
                                             />
                                             <div className="flex justify-end mt-2">
                                                 <button
@@ -380,7 +380,7 @@ const Blog = ({ params }: { params: Promise<{ blogId: string }> }) => {
                                         </div>
                                     </div>
                                 ) : (
-                                    <div className="mb-10 p-5 bg-blue-50 border border-blue-100 rounded-2xl flex items-center justify-between">
+                                    <div className="mb-10 p-5 bg-blue-50 dark:bg-blue-950 border border-blue-100 dark:border-blue-900 rounded-2xl flex items-center justify-between">
                                         <p className="text-sm text-blue-700 font-medium">Sign in to join the conversation</p>
                                         <Link href="/login">
                                             <button className="button">Sign in</button>
@@ -392,7 +392,7 @@ const Blog = ({ params }: { params: Promise<{ blogId: string }> }) => {
                                     {
                                         (isCommentsPending && !isfetchingMore) ? <SmallComponentSpinner />
                                             : (comments.length === 0 ?
-                                                <p className="text-center text-gray-800 py-8">No comments yet. Be the first to share your thoughts!</p>
+                                                <p className="text-center text-disabled py-8">No comments yet. Be the first to share your thoughts!</p>
                                                 : (
                                                     <>
                                                         <List
@@ -405,16 +405,16 @@ const Blog = ({ params }: { params: Promise<{ blogId: string }> }) => {
                                                                 return (
                                                                     <div key={index} className="flex  py-2 space-x-4" style={style}>
                                                                         <Avatar src={comment.userId.image} fallback={comment.userId.userName} className="h-8 w-8 text-xs" />
-                                                                        <div className="flex-1 bg-white border border-gray-300/50 rounded-2xl px-5 py-4">
+                                                                        <div className="flex-1 bg-surface border border-border/50 rounded-2xl px-5 py-4">
                                                                             <div className="flex items-center space-x-2 mb-2">
-                                                                                <span className="text-sm font-semibold text-gray-900">
+                                                                                <span className="text-sm font-semibold text-primary">
                                                                                     {comment.userId.userName}
                                                                                 </span>
-                                                                                <span className="text-xs text-gray-800">
+                                                                                <span className="text-xs text-disabled">
                                                                                     {format(new Date(comment.createdAt), 'MMM d, yyyy · h:mm a')}
                                                                                 </span>
                                                                             </div>
-                                                                            <p className="text-sm text-gray-700 leading-relaxed">
+                                                                            <p className="text-sm text-secondary-foreground leading-relaxed">
                                                                                 {comment.comment}
                                                                             </p>
                                                                         </div>
@@ -426,16 +426,16 @@ const Blog = ({ params }: { params: Promise<{ blogId: string }> }) => {
                                                         {/* {comments.map((comment, index) => (
                                                             <div key={index} className="flex space-x-4">
                                                                 <Avatar src={comment.userId.image} fallback={comment.userId.userName} className="h-8 w-8 text-xs" />
-                                                                <div className="flex-1 bg-white border border-gray-300/50 rounded-2xl px-5 py-4">
+                                                                <div className="flex-1 bg-surface border border-border/50 rounded-2xl px-5 py-4">
                                                                     <div className="flex items-center space-x-2 mb-2">
-                                                                        <span className="text-sm font-semibold text-gray-900">
+                                                                        <span className="text-sm font-semibold text-primary">
                                                                             {comment.userId.userName}
                                                                         </span>
-                                                                        <span className="text-xs text-gray-800">
+                                                                        <span className="text-xs text-disabled">
                                                                             {format(new Date(comment.createdAt), 'MMM d, yyyy · h:mm a')}
                                                                         </span>
                                                                     </div>
-                                                                    <p className="text-sm text-gray-700 leading-relaxed">
+                                                                    <p className="text-sm text-secondary-foreground leading-relaxed">
                                                                         {comment.comment}
                                                                     </p>
                                                                 </div>
@@ -446,7 +446,7 @@ const Blog = ({ params }: { params: Promise<{ blogId: string }> }) => {
                                                                 <button
                                                                     onClick={() => getComments(comments[comments.length - 1]._id)}
                                                                     disabled={(isfetchingMore)}
-                                                                    className="flex items-center gap-2 px-6 py-2.5 rounded-full border border-gray-300 text-sm font-medium text-gray-800 hover:bg-gray-50 disabled:opacity-50 transition-colors"
+                                                                    className="flex items-center gap-2 px-6 py-2.5 rounded-full border border-border text-sm font-medium text-disabled hover:bg-background disabled:opacity-50 transition-colors"
                                                                 >
                                                                     {isfetchingMore ? (
                                                                         <><Loader2 className="w-4 h-4 animate-spin" />Loading...</>
@@ -466,7 +466,7 @@ const Blog = ({ params }: { params: Promise<{ blogId: string }> }) => {
                         </article>
                         : (<div className="min-h-[70vh] flex flex-col items-center justify-center text-center px-4">
                             <h2 className="text-2xl font-bold text-primary mb-2">Blog not found</h2>
-                            <p className="text-gray-800 mb-6">The story you are looking for does not exist or has been removed.</p>
+                            <p className="text-disabled mb-6">The story you are looking for does not exist or has been removed.</p>
                             <Link href="/">
                                 <button className="underline">Return Home</button>
                             </Link>

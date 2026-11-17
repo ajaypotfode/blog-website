@@ -103,7 +103,7 @@ const AddBlog = () => {
                 <div className="flex items-center justify-between mb-10">
                     <div>
                         <h1 className="text-3xl font-serif font-bold text-primary">Write a Story</h1>
-                        <p className="text-gray-800 mt-1">Share your ideas with the world</p>
+                        <p className="text-disabled mt-1">Share your ideas with the world</p>
                     </div>
                     {/* <Button onClick={handleSubmit} disabled={isSubmitting} className="rounded-full px-6">
                         {isSubmitting ? <Loader2 className="w-4 h-4 animate-spin mr-2" /> : null}
@@ -120,10 +120,10 @@ const AddBlog = () => {
                             value={blogdata.title}
                             onChange={(e) => setBlogdata({ ...blogdata, title: e.target.value })}
                             placeholder="Title"
-                            className="w-full text-4xl font-serif font-bold border-0 border-b-2 border-gray-300 focus:border-primary focus:outline-none bg-transparent py-3 placeholder-gray-300 transition-colors"
+                            className="w-full text-4xl font-serif font-bold border-0 border-b-2 border-border focus:border-primary focus:outline-none bg-transparent py-3 placeholder-gray-300 transition-colors"
                             maxLength={150}
                         />
-                        <div className="text-xs text-gray-800 text-right mt-1">{blogdata.title.length}/150</div>
+                        <div className="text-xs text-disabled text-right mt-1">{blogdata.title.length}/150</div>
                         {formErrors.title && <p className='text-sm text-red-700 text-start'>{formErrors.title}</p>}
                     </div>
 
@@ -133,16 +133,16 @@ const AddBlog = () => {
                             onChange={(e) => setBlogdata({ ...blogdata, description: e.target.value })}
                             placeholder="Write a brief description of your story..."
                             rows={3}
-                            className="w-full text-lg font-serif italic border-0 border-b border-gray-300/50 focus:border-primary focus:outline-none bg-transparent py-3 resize-none placeholder-gray-300 transition-colors"
+                            className="w-full text-lg font-serif italic border-0 border-b border-border/50 focus:border-primary focus:outline-none bg-transparent py-3 resize-none placeholder-gray-300 transition-colors"
                             maxLength={300}
                         />
-                        <div className="text-xs text-gray-800 text-right mt-1">{blogdata.description.length}/300</div>
+                        <div className="text-xs text-disabled text-right mt-1">{blogdata.description.length}/300</div>
                         {formErrors.description && <p className='text-sm text-red-700 text-start'>{formErrors.description}</p>}
                     </div>
 
 
                     <div>
-                        <label className="block text-sm font-medium text-gray-900 mb-2">Category</label>
+                        <label className="block text-sm font-medium text-primary mb-2">Category</label>
                         <div className="flex flex-wrap gap-2">
                             {categories.map(cat => (
                                 <button
@@ -150,8 +150,8 @@ const AddBlog = () => {
                                     type="button"
                                     onClick={() => setBlogdata({ ...blogdata, category: cat })}
                                     className={`px-4 py-2 cursor-pointer rounded-full text-sm font-medium transition-all border ${blogdata.category === cat
-                                        ? 'bg-gray-800 text-white border-gray-800 shadow'
-                                        : 'bg-white border-gray-300/50  hover:border-black hover:text-black'
+                                        ? 'bg-primary text-primary-foreground border-border shadow'
+                                        : 'bg-surface border-border/50  hover:border-black hover:text-primary'
                                         }`}
                                 >
                                     {cat}
@@ -162,9 +162,9 @@ const AddBlog = () => {
                     </div>
 
                     <div>
-                        <label className="block text-sm font-medium text-gray-900 mb-2">Cover Image URL <span className="text-gray-800 font-normal">(optional)</span></label>
+                        <label className="block text-sm font-medium text-primary mb-2">Cover Image URL <span className="text-disabled font-normal">(optional)</span></label>
                         <div className="flex items-center space-x-3">
-                            <ImageIcon className="w-5 h-5 text-gray-800 flex-shrink-0" />
+                            <ImageIcon className="w-5 h-5 text-disabled flex-shrink-0" />
                             <input
                                 type="file"
                                 // value={imageFile}
@@ -173,7 +173,7 @@ const AddBlog = () => {
                                 ref={inputFileRef}
                                 onChange={handleImageUpload}
                                 placeholder="https://example.com/image.jpg"
-                                className="flex-1 px-4 py-2.5 border border-gray-300/50 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-gray-500/30 bg-white"
+                                className="flex-1 px-4 py-2.5 border border-border/50 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-gray-500/30 bg-surface"
                             />
                             {imageUploadPending && <SmallComponentSpinner />}
                         </div>
@@ -186,9 +186,9 @@ const AddBlog = () => {
                     </div>
 
                     <div>
-                        <label className="block text-sm font-medium text-gray-900 mb-2">
+                        <label className="block text-sm font-medium text-primary mb-2">
                             Content
-                            {/* <span className="text-gray-800 font-normal ml-2">({wordCount} words)</span> */}
+                            {/* <span className="text-disabled font-normal ml-2">({wordCount} words)</span> */}
                         </label>
                         <Editor
                             value={blogdata.content}
@@ -216,14 +216,14 @@ const AddBlog = () => {
                         {formErrors.content && <p className='text-sm text-red-700 text-start'>{formErrors.content}</p>}
                     </div>
 
-                    <div className="flex items-center justify-between pt-6 border-t border-gray-300">
+                    <div className="flex items-center justify-between pt-6 border-t border-border">
                         <Link href="/">
                             <button type="button" onClick={handleCancel} className="button  ">Cancel</button>
                         </Link>
                         <button type="submit" disabled={isAddblogPending} className="button flex items-center gap-2">
                             {isAddblogPending ? <><SmallComponentSpinner />Publishing...</> : 'Publish Story'}
                         </button>
-                        {/* <button onClick={uploadImage} className="text-black p-4 border border-black">Upload File</button> */}
+                        {/* <button onClick={uploadImage} className="text-primary p-4 border border-black">Upload File</button> */}
                     </div>
                 </form>
             </div>

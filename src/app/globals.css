@@ -2,47 +2,96 @@
 
 
 :root {
+  color-scheme: light;
+
   --background: #ffffff;
   --foreground: #000000;
+
+  --surface: #ffffff;
+  --surface-secondary: #e3e3e3;
+
+  --border: #d2d2d3;
+  --muted: #6b7280;
+
+  --secondary-foreground: #2e3133;
+
+  --primary: #000000;
+  --primary-foreground: #ffffff;
+
+  --disabled: #252525;
+
+  --surface-glass: rgb(255 255 255 / 80%);
+
+  --shadow-effect-color: #000000;
 }
 
+.dark {
+  color-scheme: dark;
+
+  --background: #111827;
+  --foreground: #f9fafb;
+
+  --surface: #1f2937;
+  --surface-secondary: #374151;
+
+  --border: #374151;
+  --muted: #9ca3af;
+
+   --secondary-foreground: #cdcecf;
+
+  --primary: #ffffff;
+  --primary-foreground: #111827;
+
+  --disabled: #99999a;
+
+  --surface-glass: rgb(31 41 55 / 80%);
+
+  --shadow-effect-color: #9ca3af;
+}
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+
+  --color-surface: var(--surface);
+  --color-surface-secondary: var(--surface-secondary);
+  --color-surface-glass: var(--surface-glass);
+
+  --color-border: var(--border);
+  --color-muted: var(--muted);
+
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+
+  --color-disabled: var(--disabled);
+
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+
   --breakpoint-mobile: 556px;
-  /* --breakpoint-sm: */
 }
 
-/* @media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-} */
-
+@custom-variant dark (&:where(.dark, .dark *));
 
 @layer utilities {
-  .shadow-soft {
-    box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.05);
+  .shadow-effect {
+    box-shadow: -5px 5px 0px var(--shadow-effect-color);
   }
 
-  .shadow-soft-hover {
-    box-shadow: 0 10px 30px -4px rgba(0, 0, 0, 0.08);
+  .shadow-effect-on:hover {
+    box-shadow: -5px 5px 0px var(--shadow-effect-color);
   }
 
   .glass-nav {
-    @apply bg-white/80 backdrop-blur-md border-b border-gray-100;
+    @apply bg-surface-glass backdrop-blur-md border-b border-border;
   }
 
   .button {
-    @apply flex-shrink-0  px-4 py-2.5 bg-black disabled:bg-gray-800 text-white text-sm font-semibold rounded-full hover:opacity-90 transition-opacity
+    @apply flex-shrink-0 px-4 py-2.5 bg-primary text-primary-foreground disabled:bg-disabled text-sm font-semibold rounded-full hover:opacity-90 cursor-pointer transition-opacity;
   }
-
-  /* .border-gray-300 { @apply border-gray-300;} */
 }
+
+
 
 body {
   background: var(--background);
@@ -52,19 +101,11 @@ body {
 
 
 
-.shadow-effect {
-  box-shadow: -5px 5px 0px black;
-}
-
-.shadow-effect-on:hover {
-  box-shadow: -5px 5px 0px black;
-}
-
-
 .multi-line-truncate {
   display: -webkit-box;
   -webkit-box-orient: vertical;
   overflow: hidden;
+  line-clamp: 3;
   -webkit-line-clamp: 3;
   /* Change number to control lines */
 }
@@ -74,6 +115,7 @@ body {
   display: -webkit-box;
   -webkit-box-orient: vertical;
   overflow: hidden;
+   line-clamp: 2;
   -webkit-line-clamp: 2;
   /* Change number to control lines */
 }
@@ -108,10 +150,6 @@ body {
     transform: translateX(-100%) !important;
 
   }
-}
-
-.border {
-  border-color: rgba(209, 213, 219, 0.5);
 }
 
 

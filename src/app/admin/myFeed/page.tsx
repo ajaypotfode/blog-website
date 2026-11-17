@@ -79,11 +79,11 @@ const MyFeed = () => {
                     <h1 className="text-3xl md:text-4xl font-serif font-bold text-primary mb-2">
                         Welcome back, {logedInUser?.name}
                     </h1>
-                    <p className="text-gray-800 text-lg mb-8">
+                    <p className="text-disabled text-lg mb-8">
                         Here is what we have picked for you today.
                     </p>
 
-                    <div className="flex items-center space-x-2 mb-6 pb-2 border-b border-gray-300">
+                    <div className="flex items-center space-x-2 mb-6 pb-2 border-b border-border">
                         <Sparkles className="w-5 h-5 text-blue-500" />
                         <h2 className="text-xl font-bold">Your Feed</h2>
                     </div>
@@ -101,15 +101,15 @@ const MyFeed = () => {
                                     }
                                 </div>
                             ) : (
-                                <div className="bg-white p-8 rounded-2xl border border-gray-300 text-center">
-                                    <p className="text-gray-800 mb-4">Your feed is empty. Follow some categories or authors!</p>
+                                <div className="bg-surface p-8 rounded-2xl border border-border text-center">
+                                    <p className="text-disabled mb-4">Your feed is empty. Follow some categories or authors!</p>
                                     <Link href="/" className="text-blue-600 font-medium hover:underline">Explore blogs</Link>
                                 </div>
                             )}
                 </div>
 
                 <div>
-                    <div className="flex items-center space-x-2 mb-6 pb-2 border-b border-gray-300">
+                    <div className="flex items-center space-x-2 mb-6 pb-2 border-b border-border">
                         <Clock className="w-5 h-5 text-purple-500" />
                         <h2 className="text-xl font-bold">Your Top Stories</h2>
                     </div>
@@ -117,9 +117,9 @@ const MyFeed = () => {
                         isBlogsPending ? <div className="py-12 flex justify-center"><SmallComponentSpinner /></div>
                             : adminBlogs.length === 0 ? (
                                 <div className="text-center py-20">
-                                    <BookOpen className="w-12 h-12 text-gray-800 mx-auto mb-4" />
+                                    <BookOpen className="w-12 h-12 text-disabled mx-auto mb-4" />
                                     <h3 className="text-lg font-semibold text-primary mb-2">No stories yet</h3>
-                                    <p className="text-gray-800 mb-6">You have not published any stories yet. Start writing!</p>
+                                    <p className="text-disabled mb-6">You have not published any stories yet. Start writing!</p>
                                     <Link href="/admin/add-blog">
                                         <button className="rounded-full underline">Write Your First Story</button>
                                     </Link>
@@ -142,7 +142,7 @@ const MyFeed = () => {
             <div className="lg:col-span-4 space-y-10">
 
                 <div className="sticky top-24">
-                    <div className="bg-white rounded-2xl p-6 border border-gray-300/50 shadow-sm">
+                    <div className="bg-surface rounded-2xl p-6 border border-border/50 shadow-sm">
                         <div className="flex items-center space-x-2 mb-6">
                             <div className="p-2 bg-green-100 text-green-700 rounded-lg">
                                 <TrendingUp className="w-5 h-5" />
@@ -158,14 +158,14 @@ const MyFeed = () => {
                                     <div className="space-y-6">
                                         {trendingBlogs.map((blog, idx) => (
                                             <Link key={blog._id} href={`/blog-details/${blog._id}`} className="group flex items-start space-x-4">
-                                                <span className="text-3xl font-serif font-black text-gray-200 group-hover:text-blue-100 transition-colors">
+                                                <span className="text-3xl font-serif font-black text-muted group-hover:text-blue-100 transition-colors">
                                                     0{idx + 1}
                                                 </span>
                                                 <div>
-                                                    <h4 className="font-bold text-gray-900 leading-tight group-hover:text-blue-600 transition-colors line-clamp-2 mb-1">
+                                                    <h4 className="font-bold text-primary leading-tight group-hover:text-blue-600 transition-colors line-clamp-2 mb-1">
                                                         {blog.title}
                                                     </h4>
-                                                    <div className="flex flex-wrap items-center text-xs text-gray-800 gap-x-2">
+                                                    <div className="flex flex-wrap items-center text-xs text-disabled gap-x-2">
                                                         <span>{blog.author.userName}</span>
                                                         <span>•</span>
                                                         <span>{blog.viewCount} views</span>

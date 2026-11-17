@@ -3,6 +3,7 @@
 import { openToastAtom } from '@/atom/toastAtom';
 import { loginDataAtom, loginFormErrors, showPasswordAtom } from '@/atom/userAtom';
 import { SmallComponentSpinner } from '@/component/Loaders';
+import ThemeToggle from '@/component/toggleTheme';
 import loginFormValidate from '@/formValidation/loginFormValidate';
 // import { useLoginProvider, useLoginUserMutation } from '@/mutation/authMutation';
 import { useAtom, useSetAtom } from 'jotai';
@@ -54,8 +55,8 @@ const LoginForm = () => {
                 window.location.href = '/'
             }
         } catch (err) {
-            console.error("error:",err);
-            
+            console.error("error:", err);
+
             openToast({ type: "error", message: "Failed To Login" })
         }
         // console.log("response is :", response);
@@ -73,32 +74,35 @@ const LoginForm = () => {
             )
 
         } catch (err) {
-            console.error("error:",err);
+            console.error("error:", err);
             openToast({
                 type: "error",
-               message: "Failed To Login"
+                message: "Failed To Login"
             });
             setIsGoogleLoginPending(false);
         }
     };
 
     return (
-        <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
-            <Link href="/" className="absolute top-8 left-8 flex items-center text-sm font-medium text-gray-800 hover:text-gray-900 transition-colors group">
+        <div className="min-h-screen bg-background flex flex-col justify-center py-12 sm:px-6 lg:px-8">
+            <Link href="/" className=" flex absolute top-8 left-8 items-center text-sm font-medium text-disabled hover:text-primary transition-colors group">
                 <ArrowLeft className="w-4 h-4 mr-2 group-hover:-translate-x-1 transition-transform" />
                 Back home
             </Link>
+            <div className='absolute top-8 right-8 '>
+                <ThemeToggle />
+            </div>
 
             <div className="sm:mx-auto sm:w-full sm:max-w-md">
                 <div className="flex justify-center mb-6">
-                    <div className="w-12 h-12 bg-black text-white rounded-xl flex items-center justify-center text-primary-foreground font-serif font-bold text-2xl shadow-lg">
+                    <div className="w-12 h-12 bg-primary  rounded-xl flex items-center justify-center text-primary-foreground font-serif font-bold text-2xl shadow-lg">
                         M
                     </div>
                 </div>
                 <h2 className="text-center text-3xl font-serif font-bold tracking-tight text-primary">
                     Welcome back
                 </h2>
-                <p className="mt-2 text-center text-sm text-gray-800">
+                <p className="mt-2 text-center text-sm text-disabled">
                     Sign in to your account to continue
                 </p>
             </div>
@@ -106,11 +110,11 @@ const LoginForm = () => {
             <div
                 className="mt-8 sm:mx-auto sm:w-full sm:max-w-[400px]"
             >
-                <div className="bg-white py-8 px-4 shadow-xl shadow-black/5 sm:rounded-2xl sm:px-10 border border-gray-300/50">
+                <div className="bg-surface py-8 px-4 shadow-xl shadow-black/5 sm:rounded-2xl sm:px-10 border border-border/50">
                     <form className="space-y-6" onSubmit={customeLogin}>
 
                         <div className="space-y-2">
-                            <label className="block mb-1 text-sm font-medium text-gray-700" htmlFor='email'>Email address</label>
+                            <label className="block mb-1 text-sm font-medium text-secondary-foreground" htmlFor='email'>Email address</label>
                             <input
                                 type="email"
                                 name='email'
@@ -118,21 +122,21 @@ const LoginForm = () => {
                                 value={loginData.email || ""}
                                 onChange={(e) => setLoginData({ ...loginData, email: e.target.value })}
                                 placeholder="Enter your email"
-                                className="w-full mobile:text-lg text-sm px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-black text-black"
+                                className="w-full mobile:text-lg text-sm px-3 py-2 border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-black text-primary"
                             // required
                             />
                             {formErrors.email && <p className='mobile:text-sm text-xs text-red-700'>{formErrors.email}</p>}
                         </div>
 
                         <div className='relative'>
-                            <label className="block mb-1 text-sm font-medium text-gray-700">Password</label>
+                            <label className="block mb-1 text-sm font-medium text-secondary-foreground">Password</label>
                             <input
                                 type={showPassword.login ? "text" : "password"}
                                 name='password'
                                 value={loginData.password || ""}
                                 onChange={(e) => setLoginData({ ...loginData, password: e.target.value })}
                                 placeholder="Enter your password"
-                                className="w-full mobile:text-lg text-sm  px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-black text-black"
+                                className="w-full mobile:text-lg text-sm  px-3 py-2 border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-black text-primary"
                             // required
                             />
                             <button
@@ -142,9 +146,9 @@ const LoginForm = () => {
                                 tabIndex={-1}
                             >
                                 {showPassword.login ?
-                                    (<Eye className='text-black' />)
+                                    (<Eye className='text-primary' />)
                                     :
-                                    (<EyeClosed className='text-black' />)
+                                    (<EyeClosed className='text-primary' />)
                                 }
                             </button>
                             {formErrors.password && <p className='mobile:text-sm text-xs text-red-700'>{formErrors.password}</p>}
@@ -164,7 +168,7 @@ const LoginForm = () => {
                         onClick={(e) => { e.preventDefault(); handleGoogleLogin(); }}
                         disabled={isGoogleLoginPending}
                         type="button"
-                        className="flex w-full items-center mt-4 justify-center gap-2 rounded border border-gray-300 bg-white p-2.5 text-sm font-medium text-gray-700 hover:bg-gray-50"
+                        className="flex cursor-pointer w-full items-center mt-4 justify-center gap-2 rounded border border-border bg-surface p-2.5 text-sm font-medium text-secondary-foreground hover:bg-background"
                     >
                         {/* Simple Inline Google Icon SVG */}
 
@@ -184,7 +188,7 @@ const LoginForm = () => {
                             <div className="w-full border-t border-gray-200" />
                         </div>
                         <div className="relative flex justify-center text-sm">
-                            <span className="px-2 bg-white text-gray-800">New to MyBlogs?</span>
+                            <span className="px-2 bg-surface text-disabled">New to MyBlogs?</span>
                         </div>
                     </div>
 

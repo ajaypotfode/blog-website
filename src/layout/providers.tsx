@@ -21,7 +21,7 @@ const ProviderWrapper: React.FC<ProviderProps> = ({ children }) => {
         <QueryClientProvider client={queryClient}>
             <SessionProvider>
                 <JotaiProvider>
-                    <main className=" border border-red-600 font-serif  ">
+                    <main className="  font-serif  ">
                         {condition && <Navbar />}
                         {children}
                     </main>

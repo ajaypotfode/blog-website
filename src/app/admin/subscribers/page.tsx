@@ -86,7 +86,7 @@ const Subscribers = () => {
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-16">
             <div className="mb-8 md:mb-10">
                 <h1 className="text-2xl sm:text-3xl font-serif font-bold text-primary">Your Subscribers</h1>
-                <p className="text-gray-800 mt-1 text-sm sm:text-base">
+                <p className="text-disabled mt-1 text-sm sm:text-base">
                     {(isSubscribePending && !isfetchingMore) ? 'Loading...' : `${totalSubscribers ?? 0} ${totalSubscribers === 1 ? 'person follows' : 'people follow'} your stories`}
                 </p>
             </div>
@@ -97,9 +97,9 @@ const Subscribers = () => {
                 </div>
             ) : subscribers.length === 0 ? (
                 <div className="text-center py-16 sm:py-20 px-4">
-                    <Users className="w-12 h-12 text-gray-800 mx-auto mb-4" />
+                    <Users className="w-12 h-12 text-disabled mx-auto mb-4" />
                     <h3 className="text-base sm:text-lg font-semibold text-primary mb-2">No subscribers yet</h3>
-                    <p className="text-sm text-gray-800 mb-6 max-w-xs mx-auto">
+                    <p className="text-sm text-disabled mb-6 max-w-xs mx-auto">
                         Write great stories to grow your audience.
                     </p>
                     <Link href="/admin/add-blog">
@@ -121,17 +121,17 @@ const Subscribers = () => {
                                     style={style}
                                     className="py-2!"
                                 >
-                                    <div className="flex  items-center gap-3 sm:gap-4 p-4 sm:p-5 bg-white rounded-2xl border border-gray-300/50 hover:shadow-sm transition-shadow overflow-hidden">
+                                    <div className="flex  items-center gap-3 sm:gap-4 p-4 sm:p-5 bg-surface rounded-2xl border border-border/50 hover:shadow-sm transition-shadow overflow-hidden">
                                         <Avatar src={subsciber.userId?.image ?? ""} fallback={subsciber.userId.userName} className="h-10 w-10 text-sm" />
 
                                         <div className="flex-1 min-w-0">
-                                            <p className="font-semibold text-gray-900 text-sm sm:text-base truncate">
+                                            <p className="font-semibold text-primary text-sm sm:text-base truncate">
                                                 {subsciber.userId.userName}
                                             </p>
-                                            <p className="text-xs sm:text-sm text-gray-800 truncate">
+                                            <p className="text-xs sm:text-sm text-disabled truncate">
                                                 {subsciber.userId.email}
                                             </p>
-                                            <p className="text-xs text-gray-800 mt-0.5">
+                                            <p className="text-xs text-disabled mt-0.5">
                                                 Since {format(new Date(subsciber.createdAt), 'MMM d, yyyy')}
                                             </p>
                                         </div>
@@ -158,7 +158,7 @@ const Subscribers = () => {
                                 <button
                                     onClick={() => fetchSubscribers(subscribers[subscribers.length - 1]._id)}
                                     disabled={(isfetchingMore)}
-                                    className="flex items-center gap-2 px-6 py-2.5 rounded-full border border-gray-300 text-sm font-medium text-gray-800 hover:bg-gray-50 disabled:opacity-50 transition-colors"
+                                    className="flex items-center gap-2 px-6 py-2.5 rounded-full border border-border text-sm font-medium text-disabled hover:bg-background disabled:opacity-50 transition-colors"
                                 >
                                     {isfetchingMore ? (
                                         <><Loader2 className="w-4 h-4 animate-spin" />Loading...</>

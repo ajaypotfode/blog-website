@@ -1,10 +1,12 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 // import { ToastContainer } from "react-toastify";
-import ProviderWrapper from "./providers";
+// import ProviderWrapper from "@/src/layout/providers";
 import './globals.css'
 import ToastContainer from "@/component/Toast";
 import ConfirmModal from "@/component/ConfirmModal";
+import ProviderWrapper from "@/layout/providers";
+import ThemeProvider from "@/layout/themeProvider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -28,22 +30,25 @@ export default async function RootLayout({
 }>) {
 
   return (
-    <html lang="en">
+    // ADDed suppressHydrationWarning HERE
+    // it tells React to ignore hydration mismatch warnings on element rendering.
+    <html lang="en" suppressHydrationWarning>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <ProviderWrapper>
-          <div className="react-toast mobile:text-lg text-md">
-            <ToastContainer />
-          </div>
-          <div className="min-h-screen bg-gray-50">
+        <ThemeProvider>
+          <ProviderWrapper>
+            <div className="react-toast mobile:text-lg text-md">
+              <ToastContainer />
+            </div>
+            <div className="min-h-screen bg-background">
 
-            {children}
+              {children}
 
-            <ConfirmModal />
-          </div>
-
-        </ProviderWrapper>
+              <ConfirmModal />
+            </div>
+          </ProviderWrapper>
+        </ThemeProvider>
       </body>
     </html>
   );

@@ -9,6 +9,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import Avatar from './Avatar'
 // import { SmallComponentSpinner } from './Loaders'
 import { signOut, useSession } from 'next-auth/react'
+import ThemeToggle from './toggleTheme'
 
 const Navbar = () => {
     // const [_, setIsLoggedIn] = useAtom(loggedinUserAtom);
@@ -54,7 +55,7 @@ const Navbar = () => {
         return (
             <header className="sticky top-0  glass-nav  z-50 transition-all duration-300">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-                    <div className="fixed top-0 left-0 w-full h-1 bg-black animate-pulse" />
+                    <div className="fixed top-0 left-0 w-full h-1 bg-primary animate-pulse" />
                 </div>
             </header>
         )
@@ -65,7 +66,7 @@ const Navbar = () => {
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
                 <div className="flex items-center space-x-2">
                     <Link href="/" className="flex items-center space-x-2 group">
-                        <div className="w-8 h-8 bg-black rounded-lg flex items-center justify-center text-white font-serif font-bold text-xl group-hover:-rotate-12 transition-transform">
+                        <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center text-primary-foreground font-serif font-bold text-xl group-hover:-rotate-12 transition-transform">
                             M
                         </div>
                         <span className="font-serif font-bold text-xl tracking-tight hidden sm:block">MyBlogs</span>
@@ -73,9 +74,10 @@ const Navbar = () => {
                 </div>
 
                 <nav className="flex items-center space-x-3 sm:space-x-6">
+                    <ThemeToggle/>
                     {session ? (
                         <>
-                            <Link href="/admin/add-blog" className="hidden sm:flex items-center space-x-2 text-sm font-medium text-gray-800 hover:text-gray-900 transition-colors rounded-full px-3 py-1.5 hover:bg-gray-200">
+                            <Link href="/admin/add-blog" className="hidden sm:flex items-center space-x-2 text-sm font-medium text-disabled hover:text-primary transition-colors rounded-full px-3 py-1.5 hover:bg-surface-secondary">
                                 <PenSquare className="w-4 h-4" />
                                 <span>Write</span>
                             </Link>
@@ -83,51 +85,51 @@ const Navbar = () => {
                             <div className="relative cursor-pointer " ref={dropdownRef}>
                                 <button
                                     onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-                                    className="flex text-4xl items-center space-x-2 focus:outline-none rounded-full ring-2 ring-transparent hover:ring-border transition-all"
+                                    className="flex text-4xl items-center space-x-2 focus:outline-none rounded-full ring-2 ring-transparent hover:ring-border transition-all cursor-pointer "
                                 >
 
                                     <Avatar className='h-10 w-10' src={session?.user.image ?? ""} fallback={session.user?.name || "User"} />
                                 </button>
 
                                 {isDropdownOpen && (
-                                    <div className="absolute right-0 mt-2 w-60 bg-white rounded-xl shadow-lg border border-gray-300/50 py-2 z-50 animate-in fade-in slide-in-from-top-2">
-                                        <div className="px-4 py-3 border-b border-gray-300/50 mb-1">
-                                            <p className="text-sm font-semibold text-gray-900">{session.user?.name}</p>
-                                            <p className="text-xs text-gray-800 truncate">{session.user?.email}</p>
+                                    <div className="absolute right-0 mt-2 w-60 bg-surface rounded-xl shadow-lg border border-border/50 py-2 z-50 animate-in fade-in slide-in-from-top-2">
+                                        <div className="px-4 py-3 border-b border-border/50 mb-1">
+                                            <p className="text-sm font-semibold text-primary">{session.user?.name}</p>
+                                            <p className="text-xs text-disabled truncate">{session.user?.email}</p>
                                         </div>
 
-                                        <Link href="/admin/add-blog" className="px-4 py-2 text-sm text-gray-900 hover:bg-gray-200 flex items-center space-x-3 transition-colors" onClick={() => setIsDropdownOpen(false)}>
-                                            <PenSquare className="w-4 h-4 text-gray-800" />
+                                        <Link href="/admin/add-blog" className="px-4 py-2 text-sm text-primary hover:bg-surface-secondary flex items-center space-x-3 transition-colors" onClick={() => setIsDropdownOpen(false)}>
+                                            <PenSquare className="w-4 h-4 text-disabled" />
                                             <span>Write Blog</span>
                                         </Link>
 
-                                        <Link href="/admin/myFeed" className="px-4 py-2 text-sm text-gray-900 hover:bg-gray-200 flex items-center space-x-3 transition-colors" onClick={() => setIsDropdownOpen(false)}>
-                                            <BookOpen className="w-4 h-4 text-gray-800" />
+                                        <Link href="/admin/myFeed" className="px-4 py-2 text-sm text-primary hover:bg-surface-secondary flex items-center space-x-3 transition-colors" onClick={() => setIsDropdownOpen(false)}>
+                                            <BookOpen className="w-4 h-4 text-disabled" />
                                             <span>My Feed</span>
                                         </Link>
 
-                                        <Link href="/admin/blog-list" className="px-4 py-2 text-sm text-gray-900 hover:bg-gray-200 flex items-center space-x-3 transition-colors" onClick={() => setIsDropdownOpen(false)}>
-                                            <LayoutDashboard className="w-4 h-4 text-gray-800" />
+                                        <Link href="/admin/blog-list" className="px-4 py-2 text-sm text-primary hover:bg-surface-secondary flex items-center space-x-3 transition-colors" onClick={() => setIsDropdownOpen(false)}>
+                                            <LayoutDashboard className="w-4 h-4 text-disabled" />
                                             <span>My Stories</span>
                                         </Link>
 
 
-                                        <Link href="/admin/saved" className="px-4 py-2 text-sm text-gray-900 hover:bg-gray-200 flex items-center space-x-3 transition-colors" onClick={() => setIsDropdownOpen(false)}>
-                                            <Bookmark className="w-4 h-4 text-gray-800" />
+                                        <Link href="/admin/saved" className="px-4 py-2 text-sm text-primary hover:bg-surface-secondary flex items-center space-x-3 transition-colors" onClick={() => setIsDropdownOpen(false)}>
+                                            <Bookmark className="w-4 h-4 text-disabled" />
                                             <span>Saved Blogs</span>
                                         </Link>
 
-                                        <Link href="/admin/subscribers" className="px-4 py-2 text-sm text-gray-900 hover:bg-gray-200 flex items-center space-x-3 transition-colors" onClick={() => setIsDropdownOpen(false)}>
-                                            <Users className="w-4 h-4 text-gray-800" />
+                                        <Link href="/admin/subscribers" className="px-4 py-2 text-sm text-primary hover:bg-surface-secondary flex items-center space-x-3 transition-colors" onClick={() => setIsDropdownOpen(false)}>
+                                            <Users className="w-4 h-4 text-disabled" />
                                             <span>Subscribers</span>
                                         </Link>
 
-                                        {/* <Link href="/admin" className="px-4 py-2 text-sm text-gray-900 hover:bg-gray-200 flex items-center space-x-3 transition-colors" onClick={() => setIsDropdownOpen(false)}>
-                                            <Settings className="w-4 h-4 text-gray-800" />
+                                        {/* <Link href="/admin" className="px-4 py-2 text-sm text-primary hover:bg-surface-secondary flex items-center space-x-3 transition-colors" onClick={() => setIsDropdownOpen(false)}>
+                                            <Settings className="w-4 h-4 text-disabled" />
                                             <span>Admin Panel</span>
                                         </Link> */}
 
-                                        <div className="h-px bg-border/50 my-1 mx-2"></div>
+                                        <div className="h-px border-border/50 my-1 mx-2"></div>
 
                                         <button
                                             onClick={handleLogout}
@@ -145,7 +147,7 @@ const Navbar = () => {
                         </>
                     ) : (
                         <>
-                            <Link href="/login" className="text-sm font-medium text-gray-800 hover:text-gray-900 transition-colors">
+                            <Link href="/login" className="text-sm font-medium text-disabled hover:text-primary transition-colors rounded-full px-3 py-1.5 hover:bg-surface-secondary">
                                 Sign In
                             </Link>
                             <Link href="/register" className="hidden sm:inline-block">

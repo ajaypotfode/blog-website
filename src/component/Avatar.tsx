@@ -4,7 +4,7 @@ const Avatar: React.FC<{ src: string, fallback: string, className?: string }> = 
     return (
         <div
             className={`relative flex shrink-0 overflow-hidden rounded-full bg-secondary 
-                text-secondary-foreground items-center justify-center font-medium border border-gray-300/50 ${className}`
+                text-secondary-foreground items-center justify-center font-medium border border-border/50 ${className}`
             }
         >
             {src ? (

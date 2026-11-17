@@ -2,6 +2,7 @@
 import { openToastAtom } from '@/atom/toastAtom';
 import { showPasswordAtom, signupDataAtom, signupFormErrors } from '@/atom/userAtom';
 import { SmallComponentSpinner } from '@/component/Loaders';
+import ThemeToggle from '@/component/toggleTheme';
 import signupFormValidate from '@/formValidation/signupFormValidate';
 import { useRegisterUserMutation } from '@/mutation/authMutation';
 import { useUploadImageMutation } from '@/mutation/uploadImageMutation';
@@ -58,7 +59,7 @@ const RegisterForm = () => {
             openToast({ message: "File must be less than 3MB", type: 'info' });
             return;
         }
-        
+
         uploadImage(
             e.target.files[0],
             {
@@ -73,22 +74,24 @@ const RegisterForm = () => {
 
 
     return (
-        <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
-            <Link href="/" className="absolute top-8 left-8 flex items-center text-sm font-medium text-gray-800 hover:text-gray-900 transition-colors group">
+        <div className="min-h-screen bg-background flex flex-col justify-center py-12 sm:px-6 lg:px-8">
+            <Link href="/" className="absolute top-8 left-8 flex items-center text-sm font-medium text-disabled hover:text-primary transition-colors group">
                 <ArrowLeft className="w-4 h-4 mr-2 group-hover:-translate-x-1 transition-transform" />
                 Back home
             </Link>
-
+            <div className='absolute top-8 right-8 '>
+                <ThemeToggle />
+            </div>
             <div className="sm:mx-auto sm:w-full sm:max-w-md">
                 <div className="flex justify-center mb-6">
-                    <div className="w-12 h-12 bg-black text-white rounded-xl flex items-center justify-center text-primary-foreground font-serif font-bold text-2xl shadow-lg">
+                    <div className="w-12 h-12 bg-primary rounded-xl flex items-center justify-center text-primary-foreground font-serif font-bold text-2xl shadow-lg">
                         M
                     </div>
                 </div>
                 <h2 className="text-center text-3xl font-serif font-bold tracking-tight text-primary">
                     Create an Account
                 </h2>
-                <p className="mt-2 text-center text-sm text-gray-800">
+                <p className="mt-2 text-center text-sm text-disabled">
                     Join a community of readers and writers
                 </p>
             </div>
@@ -96,11 +99,11 @@ const RegisterForm = () => {
             <div
                 className="mt-8 sm:mx-auto sm:w-full sm:max-w-[400px]"
             >
-                <div className="bg-white py-8 px-4 shadow-xl shadow-black/5 sm:rounded-2xl sm:px-10 border border-gray-300/50">
+                <div className="bg-surface py-8 px-4 shadow-xl shadow-black/5 sm:rounded-2xl sm:px-10 border border-border/50">
                     <form className="space-y-6" onSubmit={onSubmit}>
 
                         <div className="space-y-2 relative ">
-                            <label className="block mb-1 text-sm font-medium text-gray-700" htmlFor='image'>Upload Profile Pic</label>
+                            <label className="block mb-1 text-sm font-medium text-secondary-foreground" htmlFor='image'>Upload Profile Pic</label>
                             <input
                                 type="file"
                                 name='image'
@@ -109,7 +112,7 @@ const RegisterForm = () => {
                                 ref={inputFileRef}
                                 onChange={handleImageUpload}
                                 placeholder="upload File"
-                                className="w-full mobile:text-lg text-sm px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-black text-black"
+                                className="w-full mobile:text-lg text-sm px-3 py-2 border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-black text-primary"
                             // required
                             />
                             {imageUploadPending && <div className='absolute outline-none inset-y-0 right-0 top-7'>
@@ -119,7 +122,7 @@ const RegisterForm = () => {
                         </div>
 
                         <div className="space-y-2">
-                            <label className="block mb-1 text-sm font-medium text-gray-700" htmlFor='userName'>User Name</label>
+                            <label className="block mb-1 text-sm font-medium text-secondary-foreground" htmlFor='userName'>User Name</label>
                             <input
                                 type="text"
                                 name='userName'
@@ -127,14 +130,14 @@ const RegisterForm = () => {
                                 value={signupData.userName || ""}
                                 onChange={(e) => setSignupData({ ...signupData, userName: e.target.value })}
                                 placeholder="Enter your userName"
-                                className="w-full mobile:text-lg text-sm px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-black text-black"
+                                className="w-full mobile:text-lg text-sm px-3 py-2 border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-black text-primary"
                             // required
                             />
                             {formErrors.userName && <p className='mobile:text-sm text-xs text-red-700'>{formErrors.userName}</p>}
                         </div>
 
                         <div className="space-y-2">
-                            <label className="block mb-1 text-sm font-medium text-gray-700" htmlFor='email'>Email address</label>
+                            <label className="block mb-1 text-sm font-medium text-secondary-foreground" htmlFor='email'>Email address</label>
                             <input
                                 type="email"
                                 name='email'
@@ -142,21 +145,21 @@ const RegisterForm = () => {
                                 value={signupData.email || ""}
                                 onChange={(e) => setSignupData({ ...signupData, email: e.target.value })}
                                 placeholder="Enter your email"
-                                className="w-full mobile:text-lg text-sm px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-black text-black"
+                                className="w-full mobile:text-lg text-sm px-3 py-2 border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-black text-primary"
                             // required
                             />
                             {formErrors.email && <p className='mobile:text-sm text-xs text-red-700'>{formErrors.email}</p>}
                         </div>
 
                         <div className='relative'>
-                            <label className="block mb-1 text-sm font-medium text-gray-700">Password</label>
+                            <label className="block mb-1 text-sm font-medium text-secondary-foreground">Password</label>
                             <input
                                 type={showPassword.login ? "text" : "password"}
                                 name='password'
                                 value={signupData.password || ""}
                                 onChange={(e) => setSignupData({ ...signupData, password: e.target.value })}
                                 placeholder="Enter your password"
-                                className="w-full mobile:text-lg text-sm  px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-black text-black"
+                                className="w-full mobile:text-lg text-sm  px-3 py-2 border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-black text-primary"
                             // required
                             />
                             <button
@@ -166,9 +169,9 @@ const RegisterForm = () => {
                                 tabIndex={-1}
                             >
                                 {showPassword.login ?
-                                    (<Eye className='text-black' />)
+                                    (<Eye className='text-primary' />)
                                     :
-                                    (<EyeClosed className='text-black' />)
+                                    (<EyeClosed className='text-primary' />)
                                 }
                             </button>
                             {formErrors.password && <p className='mobile:text-sm text-xs text-red-700'>{formErrors.password}</p>}
@@ -186,7 +189,7 @@ const RegisterForm = () => {
 
                     <div className="mt-8 relative">
                         <div className="relative flex justify-center text-sm">
-                            <span className="px-2 bg-white text-gray-800">Already have an account</span>
+                            <span className="px-2 bg-surface text-disabled">Already have an account</span>
                         </div>
                     </div>
 
